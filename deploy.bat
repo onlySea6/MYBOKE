@@ -17,7 +17,7 @@ git commit -m 'deploy'
 
 REM 如果发布到 https://gitee.com/<USERNAME>
 REM git push -f git@github.com:<USERNAME>/<USERNAME>.github.io.git master
-git push -f git@gitee.com:wj199624/background-system.git master
+git push -f git@gitee.com:wj199624/wangjie.git master
 REM driving_a_snail_to_knock_code.gitee.io/wangjie
 REM 如果发布到 https://gitee.com/<USERNAME>/<REPO>
 REM git push -f https://gitee.com/zguangju/ZGuangJu.git master:gh-pages
