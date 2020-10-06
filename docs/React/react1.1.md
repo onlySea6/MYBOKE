@@ -10,7 +10,7 @@ tags:
 1. JSX的特点
 ```html
 -  只能有一个根元素 
--  <></>代表dom  {}表示js
+-  <></>代表dom  {}表示js  <></>=<React.Fragment key='1'></React.Fragment> 但是空标签不能给任何属性 React.Fragment可以给key 只能给key
 -  class=>className  clas关键字
 -  for=> HtmlFor
 -  style要写成对象形式 写双大括号{{}}  第一个大括号表示js 第二个表示style对象
@@ -19,4 +19,5 @@ tags:
 - js语法注释 单行注释注意换行 {//这是单行注释}  {/***这是多行注释*/}
 -  事件 on加上驼峰命名法
 -  {}要有返回值
+-  布尔类型 、Null、 undefined渲染的时候会被忽略，但是这是合法的
 ```

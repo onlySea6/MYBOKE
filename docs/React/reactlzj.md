@@ -167,3 +167,56 @@ class Xh extends React.Component{
     }
 }
 ```
+
+## 高阶组件
+- 组件作为函数的参数或者返回值  
+- 封装公用逻辑  一般不超过两层
+---
+注意：封装高级组件的时候props别忘记传，以及定义的高级组件使用的时候要在原组件的下面调用，否则调用不到
+---
+```js
+import React, { Component } from 'react'
+import { render } from 'react-dom'
+//高阶组件用于封装重复的代码 
+function Logger(OldCom) {
+	//参数是老的组件(My/My1)  返回一个新的组件 但是渲染还是老的组件
+	return class  extends Component{
+        constructor(){
+            super()
+            this.state = {
+                tim: Date.now(),
+            }
+        }
+        componentDidMount(){
+            console.log(Date.now() - this.state.tim + 'ms')
+        }
+        render(){
+            return <OldCom {...this.props}></OldCom>
+        }
+    }
+}
+class App extends Component {
+	constructor() {
+		super()
+	}
+	render() {
+		return <></>
+	}
+}
+let Loger=Logger(App)
+class My1 extends Component {
+	constructor() {
+		super()
+	}
+	render() {
+		return <></>
+	}
+}
+render(
+	<>
+    <Loger></Loger>
+		 <My1 />
+	</>,
+	document.getElementById('root')
+)
+```

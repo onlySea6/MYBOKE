@@ -448,7 +448,7 @@ module.exports = {
                     path:'reactsm'
                 },
                 {
-                    title: 'react的Context上下文',
+                    title: '属性检查',
                     collapsable: false, 
                     path:'react3context'
                 }
