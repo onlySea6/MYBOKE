@@ -19,6 +19,6 @@ home: true
 
 # 文章链接
 
-- [我的博客地址](http://www.baidu.com/)
+<!-- - [我的博客地址](http://www.baidu.com/) -->
 
 - [Markdown 语法整理](https://www.jianshu.com/p/b03a8d7b1719)

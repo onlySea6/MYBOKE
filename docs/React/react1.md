@@ -86,3 +86,24 @@ npm run eject
 
 - 好处：解耦，便于维护和开发
 - 复用：哪儿用就给它引入到哪儿
+
+## props.children
+
+- 每个组件都可以获取到 props.children。它包含组件的开始标签和结束标签之间的内容。
+
+## react中的 JSX 语法 => js+xml( html )
+- 什么是jsx jsx只是一种语法糖 通过badel转译
+1. JSX的特点
+```html
+-  只能有一个根元素 
+-  <></>代表dom  {}表示js  <></>=<React.Fragment key='1'></React.Fragment> 但是空标签不能给任何属性 React.Fragment可以给key 只能给key
+-  class=>className  clas关键字
+-  for=> HtmlFor
+-  style要写成对象形式 写双大括号{{}}  第一个大括号表示js 第二个表示style对象
+-  innerHtml 防止xss攻击 =>dangerouslySetInnerHTML <p dangerouslySetInnerHTML={{__html:inm}}></p>(固定写法)
+  千万不要相信用户数据输入的内容  输入的转成字符串就可以防止xss
+- js语法注释 单行注释注意换行 {//这是单行注释}  {/***这是多行注释*/}
+-  事件 on加上驼峰命名法
+-  {}要有返回值
+-  布尔类型 、Null、 undefined渲染的时候会被忽略，但是这是合法的
+```

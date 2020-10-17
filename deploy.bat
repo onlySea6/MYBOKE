@@ -1,12 +1,15 @@
 @echo off
 
 REM 构建生成静态文件
+
+
+
 echo building...
 call build.bat
 echo building-complete
 
 REM 进入生成的文件夹
-cd dist
+cd docs/.vuepress/dist
 
 REM 如果是发布到自定义域名
 REM echo 'www.example.com' > CNAME

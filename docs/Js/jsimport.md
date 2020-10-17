@@ -18,7 +18,7 @@ for(let i=0;i<this.length;i++>){
     }
 }
 }
-let a=arr.map(item=>item!=2)
+let a=arr.filter(item=>item!=2)
 console.log(a)
 ```
 2. map

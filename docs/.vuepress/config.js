@@ -111,26 +111,6 @@ module.exports = {
                     }
                 ]
             },
-            //git
-            {
-                text:'Git',
-                items:[{
-                    text:'git必做',
-                    link:'/Git/git'
-                },{
-                    text:'git常用命令',
-                    link:'/Git/gitbase'
-                }]
-            },
-            //Axios
-            {
-                text: 'Axios',
-                items: [{
-                        text: 'Axios',
-                        link: '/Axios/axios'
-                    }
-                ]
-            },
             //前端框架
             {
                 text: '前端框架',
@@ -143,6 +123,10 @@ module.exports = {
                         link: '/WeChat/weixin1'
                     },
                     {
+                        text: 'vuepress',
+                        link: '/Other/page2'
+                    },
+                    {
                         text: 'Vue',
                         link: '/Vue/vue1'
                     },
@@ -150,19 +134,30 @@ module.exports = {
                         text: 'React',
                         link: '/React/react1'
                     },
+                    {
+                        text: 'React Router 中文文档',
+                        link: '/ReactRouter/Router1'
+                    },
                   
                 ]
             },
-            //markdow vuepress node
+            //markdow vuepress node git axios webpack
             {
-                text: '其他',
+                text: '工具编译',
                 items: [{
-                    text: 'Markdown基础',
+                    text: 'Markdown语法',
                     link: '/Other/page1'
                 },
                 {
-                    text: 'vueprss',
-                    link: '/Other/page2'
+                    text:'git',
+                    link:'/Git/git'
+                },{
+                    text:'Axios',
+                    link:'/Axios/axios'
+                },
+                {
+                    text: 'TypeScript',
+                    link: '/TyScript/ts'
                 },
                 {
                     text: 'Node',
@@ -188,6 +183,39 @@ module.exports = {
         sidebar: {
             // 侧边导航栏内容（示例）
 
+            // TyScript
+            '/TyScript/':[
+            {
+                title:'TyScript基础语法',
+                collapsable: false,
+                path:'ts'
+            },
+            {
+                title:'TyScript基础类型',
+                collapsable: false,
+                path:'ts1'
+            },
+            {
+                title:'TyScript变量声明',
+                collapsable: false,
+                path:'ts2'
+            },
+            {
+                title:'TyScript运算符',
+                collapsable: false,
+                path:'ts3'
+            },
+            {
+                title:'TyScript循环',
+                collapsable: false,
+                path:'ts4'
+            },
+            {
+                title:'TyScript函数',
+                collapsable: false,
+                path:'ts5'
+            },
+            ],
             // 微信小程序
             '/WeChat/':[{
                 title:'微信小程序基础',
@@ -237,8 +265,8 @@ module.exports = {
             //markdow和vuepress
             '/Other/': [{
                 title: 'markdown基础',
-                collapsable: true, //是否折叠侧边栏
-                children: ['page1']
+                collapsable: false, //是否折叠侧边栏
+                path: 'page1'
             },{
                 title: 'vuepress',
                 collapsable: false,
@@ -349,6 +377,11 @@ module.exports = {
                 title:'Promise',
                 collapsable: false,
                 path: 'new6'
+            },
+            {
+                title:'跨域',
+                collapsable: false,
+                path: 'new7'
             }
         ],
             //Axios
@@ -419,18 +452,8 @@ module.exports = {
             '/React/':[
                 {
                     title: 'React基础',
-                    collapsable: true, //是否折叠侧边栏
-                    children: ['react1', 'react1.1']
-                },
-                {
-                    title: 'React类组件',
-                    collapsable: false, 
-                    path:'reactlzj'
-                },
-                {
-                    title: 'Hook',
-                    collapsable: false, 
-                    path:'hook'
+                    collapsable: false, //是否折叠侧边栏
+                    path: 'react1'
                 },
                 {
                     title: 'react受控组件和ref',
@@ -448,10 +471,37 @@ module.exports = {
                     path:'reactsm'
                 },
                 {
+                    title: 'Hook',
+                    collapsable: false, 
+                    path:'hook'
+                },
+                {
+                    title: 'react路由',
+                    collapsable: false, 
+                    path:'router'
+                },
+                {
+                    title: 'redux',
+                    collapsable: false, 
+                    path:'redux'
+                },
+                {
                     title: '属性检查',
                     collapsable: false, 
                     path:'react3context'
                 }
+            ],
+            '/ReactRouter/':[
+                {
+                    title: '导航',
+                    collapsable: true, //是否折叠侧边栏
+                    children: ['Router1', 'Router2','Router3','Router4', 'Router5','Router6','Router7', 'Router8','Router9']
+                },
+                {
+                    title: 'API',
+                    collapsable: true, 
+                    children: ['gouzi1']
+                },
             ]
         },
         // search: false, //禁用内置搜索框

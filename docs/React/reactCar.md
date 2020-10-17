@@ -99,103 +99,117 @@ render(<App />, window.root);
 2. 函数组件
 ```js
 //函数组件
-import React,{useState,useRef} from 'react'
+import { func } from 'prop-types'
+import React, { useState } from 'react'
 import { render } from 'react-dom'
-function Nav(){ 
-    const [state,setState]=useState([
-        { name: '苹果', number: 5, price: 6, checks: false },
-        { name: '橘子', number: 8, price: 8, checks: false },
-        { name: '香蕉', number: 2, price: 3, checks: false },
-        { name: '菠萝', number: 5, price: 10, checks: false },
-        { name: '甘蔗', number: 4, price: 2, checks: false },
-        { name: '柚子', number: 8, price: 15, checks: false },
-        { name: '柠檬', number: 11, price: 5, checks: false },
-    ])
-    //全选按钮
-    function add(e){
-   let as= e.target.checked
-        let abs=[...state]
-                for(let i=0;i<abs.length;i++ ){
-                    abs[i].checks=as
-            }
-        setState(state=>abs)
-       }
-       const couterRef = useRef();
-       const all = useRef();
-    //单选按钮
-    function handOne(index,checks){
-        let abc=state
-       for(let i=0;i<abc.length;i++){
-           abc[index].checks=!checks
-       }
-       //全选之后为true
-    let qx=  abc.every((item)=>item.checks===true)
-    couterRef.current.checked=qx
-       setState(state=>abc)
-    }
-    //加数量
-    function jia(index){
-        let lt=state
-        lt[index].number= lt[index].number+1 
-         setState(state=>lt)
-    }
-    //减数量
-    function jian(index){
-        let lt=state
-        if(lt[index].number!=0){
-            lt[index].number= lt[index].number-1 
-        }
-        setState(state=>lt)
-         
-    }
-    //计算价格总和
-    function MoneyAll(){
-        let sumAll=0
-        let mon=state
-    for(var i=0;i<mon.length;i++){
-        if(mon[i].checks===true){
-            // console.log(1)
-            sumAll += mon[i].number * mon[i].price
-        }
-    }
-    all.current.value=sumAll
-    }
-    //删除商品
-    function del(indexs){
-        let abd=state
-    let a=[]
-     let c=   abd.map((item,index,arr)=>{
-         if(index!=indexs) {
-             a.push(arr[index])
-         } 
+function My() {
+	const [state, setState] = useState({
+		list: [
+			{ name: '苹果', number: 5, price: 6, checks: false },
+			{ name: '橘子', number: 8, price: 8, checks: false },
+			{ name: '香蕉', number: 2, price: 3, checks: false },
+			{ name: '菠萝', number: 5, price: 10, checks: false },
+			{ name: '甘蔗', number: 4, price: 2, checks: false },
+			{ name: '柚子', number: 8, price: 15, checks: false },
+			{ name: '柠檬', number: 11, price: 5, checks: false },
+		],
+		isAllChecked: false,
+		allPrice: 0,
+	})
+	function quan(e) {
+		let alls = e.target.checked
+		let lits = state.list
+		lits.map((item, index) => {
+			item.checks = alls
+		})
+		setState({
+            list: lits,
+            allPrice: 0,
         })
-        setState(state=>a)
+        z()
+	}
+	function dan(index) {
+       
+		let lists = state.list
+        lists[index].checks = !lists[index].checks
+		let os = lists.every((item, index) => item.checks === true)  
+		setState({
+			list: lists,
+            isAllChecked: os,
+            allPrice: 0,
+        })
+        z()
     }
-    return <div>
-        <input type='checkbox' ref={couterRef}  onChange={(e)=>add(e)} value=''/>全选
-        {
-            state.map((item,index)=>{
-            return <div key={index}>
-                <input type='checkbox' checked={item.checks}  onChange={()=>handOne(index,item.checks)} value=''/>
-               名称： {item.name} 
-               数量： <button onClick={()=>jian(index)}>-</button>{item.number}<button onClick={()=>jia(index)}>+</button> 
-               价格： {item.price}
-               <button onClick={()=>del(index)}>删除商品</button>
-            </div> 
+    function jian(index){
+        let lits=state.list
+        if(  lits[index].number!=0){
+            lits[index].number= lits[index].number -1
+            setState({
+                list:lits,
             })
         }
-        价格总和:<input ref={all}/> <br/>
-        <button onClick={MoneyAll}>结算</button>
-    </div>
+        z()
+    }
+    function jia(index){
+        let lits=state.list
+        lits[index].number= lits[index].number +1
+        setState({
+            list:lits
+        })
+        z()
+    }
+  function z(){
+       let a=0
+       let lts=state.list
+       let os = lts.every((item, index) => item.checks === true)
+       lts.map((item,index)=>{
+           if(item.checks===true){
+               a += parseFloat(item.number)* parseFloat(item.price)
+           }
+           setState({
+               list:lts,
+               allPrice:a,
+               isAllChecked: os,
+        })
+       })
+   }
+	return (
+		<div>
+			<input
+				type="checkbox"
+				checked={state.isAllChecked}
+				onChange={quan}
+				value=""
+			/>{' '}
+			全选
+			{state.list.map((item, index) => {
+				return (
+					<div key={index}>
+						<input
+							checked={item.checks}
+							type="checkbox"
+							onChange={() => dan(index)}
+							value=""
+						/>
+						名字:{item.name}
+						<button onClick={()=>jian(index)}>-</button>
+						数量：{item.number}
+						<button onClick={()=>jia(index)}>+</button>
+						价格:{item.price}
+					</div>
+				)
+			})}
+			总价:{state.allPrice}
+		</div>
+	)
 }
-render(<Nav></Nav>, document.getElementById('root'))
-
+render(<My> </My>, document.getElementById('root'))
 ```
 ## 函数组件实现ToDolist
 ```js
 //Todolist代办事项
-import './todo.css'
-import React,{useState,useRef} from 'react'
+// import './todo.css'
+import React,{useState,useRef,useEffect,forwardRef} from 'react'
 import { render } from 'react-dom'
 function  Todolist(){
     //todo列表
@@ -212,31 +226,37 @@ function  Todolist(){
         setdolist(dolist=>t)
         setnewlist(newlist=>newlist.concat(tt))
     }
-    function tj(c,d){
+    function tj(c){
         // console.log(typeof(c) )
         let arr=[]
         arr.push(c)
         setnewlist(newlist=>newlist.concat(arr))
-        setState(nuall=>d)
     }
+    const Text=forwardRef(Headers)
+    let iptRef = useRef()
+    useEffect(()=>{
+        //清空输入框
+        iptRef.current.value=''
+    },[newlist])
         return <>
-        <Headers tj={tj}/>
+        <Text tj={tj}  ref={iptRef}/>
        <List newlist={newlist} change={change}/>
        <Footer dolist={dolist} adds={adds}/>
         </>
 }
-function Headers ({nuall,setState,tj}){
-    const doVal=useRef()
+function Headers ({nuall,setState,tj},Pref){
+    // const doVal=useRef()
     //头部
   function add(props){
-   let Val= doVal.current.value
-   let c=''
-    tj(Val,c)
+   let Val= Pref.current.value
+   if(Val){
+    tj(Val)
+   }
 }
    return <div className='header'>
        <span>Todolist</span>
        <span className='span'>
-       <input placeholder='输入代办事项' value={nuall}  ref={doVal} />
+       <input placeholder='输入代办事项' value={nuall}  ref={Pref} />
        <button onClick={add}>添加</button>
        </span>
    </div>
@@ -293,4 +313,222 @@ function Footer({dolist,setdolist,adds}){
 
 
 render(<Todolist></Todolist>, document.getElementById('root'))
+```
+## 类组件实现todolist
+
+```js
+import React, {Component ,createRef} from 'react'
+import { render } from 'react-dom'
+class My extends Component{
+    //input
+    constructor(){
+        super()
+        this.state={
+           over:['3'],
+           list:['1','2'],
+        }
+       this.refA=createRef()
+    }
+
+    // 添加代办事项
+    add=()=>{
+        let val= this.refA.current.value
+      let abs=this.state.list
+      abs.push(val)
+        this.setState({
+            list:abs
+        })
+    }
+    componentDidUpdate(){
+        //更新之后清空这个输入框
+        this.refA.current.value=''
+    }
+    updata=(oldArr,newArr)=>{
+        // oldArr要留下的
+      let a=  this.state.over.concat(newArr)
+        this.setState({
+          over:a,
+          list:oldArr
+        })
+    }
+    updatas=(oldArr,newArr)=>{
+        // oldArr这是要留下的
+        let a=  this.state.list.concat(newArr)
+        this.setState({
+          over:oldArr,
+          list:a
+        })
+    }
+  render(){
+      return<>
+          <input ref={this.refA}/> 
+          <button onClick={this.add}>添加事件</button>
+          <List value={this.state.list} updata={this.updata} />
+          <Foot value={this.state.over} updata={this.updatas} />
+      </>
+  }
+}
+class List extends Component{
+    // 代办事项
+    constructor(props){
+        super()
+        // console.log(props)
+    }
+    add=(index)=>{
+        let pushArr=[]//这是要删除的
+        let newArr=[] //这是要保留的
+    let a= this.props.value[index]  
+    this.props.value.map((item,index)=>{
+        if(item===a){
+            pushArr.push(item)
+        }else{
+            newArr.push(item)
+        }
+    })
+    this.props.updata(newArr,pushArr)
+    }
+  render(){
+      return<div>
+        代办的事项
+            {
+                this.props.value.map((item,index)=>{
+                    return <div key={index}>
+                        <input type='checkbox' onChange={()=>this.add(index)}/>
+                            {item}
+                    </div>
+                })
+            }
+      </div>
+  }
+}
+class Foot extends Component{
+    // 完成的事项
+    constructor(props){
+        super(props)
+    }
+    to=(index)=>{
+        let pushArr=[]//这是要删除的
+        let newArr=[] //这是要保留的
+    let a= this.props.value[index]  
+    this.props.value.map((item,index)=>{
+        if(item===a){
+            pushArr.push(item)
+        }else{
+            newArr.push(item)
+        }
+    })
+    this.props.updata(newArr,pushArr)
+    }
+  render(){
+      return<>
+          完成的事项
+          {
+              this.props.value.map((item,index)=>{
+                  return <div key={index}>
+                        <input type='checkbox' onChange={()=>this.to(index)}/>
+                            {item}
+                    </div>
+              })
+          }
+      </>
+  }
+}
+render(<My> </My>, document.getElementById('root'))
+```
+
+## 使用上下文使按钮变色
+
+1. 函数组件
+```js
+import React, {createContext,useContext,useState } from 'react'
+import { render } from 'react-dom'
+let themes = {
+    light: {
+      color: 'white',
+      background: 'blue',
+    },
+    dark: {
+      color: '#ffffff',
+      background: '#222222',
+    },
+  }
+  //定义上下文对象
+  let theme=createContext()
+  function Child(){
+      let context=useContext(theme)
+    //   console.log(context)
+      return<>
+          <button style={{color:context.color,background:context.background}}>颜色</button>
+      </>
+  }
+function My(){   
+    let [state,setState]=useState(themes.dark)
+    function tag(){
+        let a= state ===themes.dark?themes.light:themes.dark
+        setState(a)
+    }
+        return<theme.Provider value={state}>
+            <Child/>
+            <button onClick={tag}>点击</button>
+        </theme.Provider>
+    
+ 
+}
+render(<My> </My>, document.getElementById('root'))
+```
+2. 类组件
+```js
+
+import React,{Component, createContext} from 'react'
+import {render} from 'react-dom'
+let themes = {
+    light: {
+      color: 'white',
+      background: 'blue',
+    },
+    dark: {
+      color: '#ffffff',
+      background: '#222222',
+    },
+  }
+let thenms=createContext()
+class My extends Component{
+    constructor(){
+        super()
+        this.state={
+            colors:themes.light
+        }
+    }
+    tag=()=>{
+     let a=   this.state.colors==themes.light?themes.dark:themes.light
+     console.log(a)
+     this.setState({
+        colors:a
+     })
+    }
+    render(){
+        return<thenms.Provider value={this.state.colors}>
+            <button onClick={this.tag}>点击变色</button>
+            <Btn/>
+        </thenms.Provider>
+    }
+}
+class Btn extends Component{
+    static contextType=thenms
+    constructor(props){
+        super()
+      
+    }
+    render(){
+        // console.log(this.context)
+        return<>
+            <button style={{color:this.context.color,background:this.context.background}}>按钮</button>
+        </>
+    }
+}
+
+
+
+render(<My></My>,document.getElementById('root'))
+
 ```

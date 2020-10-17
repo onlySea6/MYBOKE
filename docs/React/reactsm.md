@@ -46,3 +46,76 @@ tags:
 - constructor->getDerivedStateFromProps（静态方法必须用static调用）->询问是否跟新->不需要（直接中断）
 - constructor->getDerivedStateFromProps（静态方法必须用static调用）->询问是否跟新->shouldComponentUpdate()需要->render()->getSnapshotBeforeUpdate(获取跟新前的dom、只能读取dom)->/ componentDidUpdate()
 
+
+## React请求
+1. 在类组件中的请求 axios
+```js
+import axios from 'axios'
+<button onClick={this.login}>登录</button>
+
+login=()=>{
+  //获取输入框的值传入接口
+        let user=this.user.current.value
+        let password=this.password.current.value
+        axios.get('http://hn.algolia.com/api/v1/search?query=redux ',{user,password}).then((res)=>{
+            console.log(res)
+            this.setState({
+                hits:res.data.hits
+            })
+        })
+    }
+```
+2. 在函数中的请求
+```js
+import React ,{useEffect,useState}from 'react'
+//hook实现异步
+import axios from 'axios'
+export default function HookApi() {
+    //初始化 数据
+    const [data,setData]=useState({hits:[]})
+    //初始化 请求url
+    const [url,setUrl]=useState('http://hn.algolia.com/api/v1/search?query=redux ')
+    //初始化查询参数
+    const [query,setQuery]=useState('redux')
+    //初始化查询数据
+    useEffect(() => {
+        //async 表示函数有异步操作和await一起使用   返回值是个promise
+      const fetchD=async()=>{
+          const r= await axios.get(url)
+          //设置数据
+          setData(r.data)
+      }
+      fetchD()
+    }, [url])
+        // console.log(data.hits)
+    return (
+        <div>
+        {/* input放的是查询参数的值 */}
+        <input value={query} onChange={(e)=>{
+            setQuery(e.target.value)
+        }}/>
+        <button onClick={()=>{
+            setUrl(`http://hn.algolia.com/api/v1/search?query=${query} `)
+        }}>查询</button>
+            {
+                data.hits&&data.hits.length?data.hits.map((item,index)=>{
+                    return <div key={index}>{item.author}</div>
+                }):<div>loading...</div>
+            }
+        </div>
+    )
+}
+```
+
+## async await
+
+```js
+//async 表示函数有异步操作和await一起使用   返回值是个promise
+      const fetchD=async()=>{
+          const r= await axios.get(url)
+          //设置数据
+          setData(r.data)}
+        fetchD()
+//相当于 
+      axios.get(url).then(data=>{console.log(data)})
+```
