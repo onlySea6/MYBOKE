@@ -1,6 +1,7 @@
 ---
 title: react基础小例子
 date: 2019-10-11
+sidebar: auto
 categories:
   - react
 tags:
@@ -526,9 +527,92 @@ class Btn extends Component{
         </>
     }
 }
-
-
-
 render(<My></My>,document.getElementById('root'))
+```
+
+## 函数组件实现全选 
+```js
+import React,{useState,createRef} from 'react'
+import './style/index.scss'
+export default function Home () {
+    const [state, setState] = useState([])
+    const [wc,setWc]=useState(0)
+    const add = (e) => {
+        if (e.keyCode == 13) {
+            state.push({ val: e.target.value ,check:false})
+            e.target.value=''
+            setState([...state])
+             ALL()
+        }
+    }
+    // 点击完成
+    const ipts=createRef()
+    const adds = (e) => {
+        let val= e.target.checked
+        let index=e.target.attributes.aaaaaaaaaaaaa.value
+        state[index].check = val
+        setState([...state])
+        ALL()
+    }
+    // 判断全选的函数
+    const ALL = () => {
+         let allval = state.every((item) => {
+				return item.check === true
+			})
+			// 全选按钮
+        ipts.current.checked = allval
+        // 判断个数的
+         let n = 0
+			state.map((item) => {
+				if (item.check == true) {
+					n = n + 1
+				}
+			})
+			setWc(n)
+    }
+    // 删除
+    const sc = (index) => {
+        state.splice(index, 1)
+        setState([...state])
+        ALL()
+    }
+    // 全选
+    const all = (e) => {
+        let val = e.target.checked
+        state.map((item) => {
+            item.check=val
+        })
+        setState([...state])
+        ALL()
+    }
+    return (
+		<>
+			<div className='header'>
+				<input type='text' placeholder='输入事件' onKeyUp={add} />
+			</div>
+			<h6>未完成</h6>
+			{state?.map((item, index) => {
+				return (
+					<div className='list' key={index}>
+						<input
+							type='checkbox'
+							aaaaaaaaaaaaa={index}
+							checked={item.check}
+							onChange={adds}
+						/>
+						<p>{item.val}</p>
+						<span onClick={() => sc(index)}>x</span>
+					</div>
+				)
+			})}
+			<h6>
+				全选 <input type='checkbox' ref={ipts} onChange={all} />
+			</h6>
+			<h6>
+				已经完成：{wc}全部:{state.length}{' '}
+			</h6>
+		</>
+	)
+}
 
 ```

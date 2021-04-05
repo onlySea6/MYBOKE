@@ -1,6 +1,7 @@
 ---
 title: 正则
 date: 2018-03-01
+showSponsor: true
 categories:
   - js
 tags:

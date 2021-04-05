@@ -1,6 +1,7 @@
 ---
 title: React路由
 date: 2019-03-01
+sidebar: auto
 categories:
   - React
 tags:
@@ -23,17 +24,17 @@ import './rou.css'
 import { render } from 'react-dom'
 function My() {
 	return (
-        <BrowserRouter>
+        // basename 基本网址、根目录作用公共的代码不重复写 forceRefresh 跳转页面刷新
+        <BrowserRouter basename='wj' forceRefresh>
           {/*
           包裹路由的容器Router 放在路由的最外层
         BrowserRouter history不带#  HashRouter hash模式的路由带#
           */}
-        
 			<nav>
 				<ul>
                     <li>
                     {/*
-                    Link导航组件 其实是a标签 to属性决定跳转 匹配的是Route的path
+                    Link导航组件 渲染到页面为a标签 to属性决定跳转 匹配的是Route的path
                     Link的to属性
                     to:string to='/'
                      to:object to={{pathname:'/',search:"?查询字符串",hash='hash值',state:'用于隐士传参'}} 
@@ -97,8 +98,9 @@ function My() {
 }
 render(<My> </My>, window.root)
 ```
-##  路由hook
-使用一下hooks你的react版本需要16.8及以
+
+##  路由hook 从react-router-dom中引入
+使用一下hooks你的react版本需要16.8及以后
 
 1. useHistory 路由跳转
 2. useParams 使用路径参数
@@ -216,6 +218,49 @@ export default function Homechild({routes}) {
 }
 
 ```
+## 路由插件 （能像vue那样集中管理） react-router-config 
+- 但是路由拦截不好控制
+1. 安装
+```js
+yarn add  react-router-config 
+```
+2. 引入
+```js
+import { matchRoutes, renderRoutes } from "react-router-config";
+```
+3. 使用
+```js
+import React from "react";
+import { renderRoutes } from "react-router-config";
+import { HashRouter, Redirect } from "react-router-dom";
+
+const routes = [
+  { path: "/", exact: true, render: () => <Redirect to={"/page1"} /> },
+  { path: "/page1", component: Page1 },
+  {
+    path: "/page2",
+    component: Page2,
+    routes: [
+      {
+        path: "/page2/child",
+        component: Child
+      }
+    ]
+  }
+];
+
+function App() {
+  return (
+    <HashRouter>
+      <div className="App">
+        <h1>Hello</h1>
+        {renderRoutes(routes)}
+      </div>
+    </HashRouter>
+  );
+}
+```
+
 ## 路由拦截
 1. 使用render
 ```js
@@ -282,7 +327,113 @@ export default function Login() {
     )
 }
 ```
+3. 配置路由
+```js
+3.1----配置路由
+const routes = [
+  {
+    exact: true,
+    auth: true,
+    path: "/",
+    component: require("../Home").default,
+  },
+  {
+    path: "/reg",
+    component: require("../Registy").default,
+  },
+  {
+    path: "/login",
+    component: require("../Login").default,
+  },
+];
 
+export default routes;
+3.2----引入使用拦截
+import React from "react";
+import { BrowserRouter, NavLink, Route, Redirect } from "react-router-dom";
+import routes from "./router/index";
+import MyPrompt from "./MyPrompt";
+const Com = () => {
+  // 创建一个全局数据存储
+  const userstate = window.sessionStorage.getItem("user");
+  if (!userstate) {
+    window.sessionStorage.setItem("user", "false");
+  }
+  return (
+    <BrowserRouter>
+      <MyPrompt />
+      {/* 导航 */}
+      <NavLink to="/home">首页</NavLink>
+      <NavLink to="/login">登陆</NavLink>
+      <NavLink to="/reg">注册</NavLink>
+      {/* 线路 */}
+      {routes.map((item, index) => {
+        return (
+          <Route
+            key={index}
+            path={item.path}
+            component={(props) => {
+              const state = window.sessionStorage.getItem("user");
+              // 根据判断做出渲染
+              if (!item.auth) {
+                if (state === "false") {
+                  return <item.component {...props} />;
+                } else {
+                  return <Redirect to="/home" />;
+                }
+              } else {
+                if (state === "true") {
+                  return <item.component {...props} />;
+                } else {
+                  return <Redirect to="/login" />;
+                }
+              }
+            }}
+          />
+        );
+      })}
+    </BrowserRouter>
+  );
+};
+
+export default Com;
+3.3----配合组件 MyPrompt 防止标签跳转内容不跳转地址跳转
+// 路由拦截器
+import React from "react";
+
+import { Prompt, withRouter } from "react-router-dom";
+
+const MyPrompt = (props) => {
+  return (
+    // Prompt是在页面离开的时候触发
+    // location即将进入的下一个路由信息
+    // 在这里做拦截判断
+    <>
+      <Prompt
+        message={(location) => {
+          const state = window.sessionStorage.getItem("user");
+          if (
+            (location.pathname === "/" || location.pathname === "/home") &&
+            state === "false"
+          ) {
+            return false;
+          } else if (
+            location.pathname !== "/" &&
+            location.pathname !== "/home" &&
+            state === "true"
+          ) {
+            return false;
+          }
+          return true;
+        }}
+      />
+    </>
+  );
+};
+
+export default withRouter(MyPrompt);
+
+```
 ## 路由过渡动画（第三方）
 1. 先下载安装
 ```js

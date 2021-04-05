@@ -6,6 +6,8 @@ categories:
 tags:
   -  微信小程序
 ---
+## 循环事件传递 index --->  data-name='{{index}}'  接收 获取自定义属性 事件参数对象的e的currentTarget.data
+
 ## 组件注册（定义）
 1. 要编写一个自定义组件，首先需要在 json 文件中进行自定义组件声明
 （将 component 字段设为 true 可将这一组文件设为自定义组件）

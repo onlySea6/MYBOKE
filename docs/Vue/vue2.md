@@ -9,16 +9,26 @@ tags:
 
 ## props/\$emit[传统的父子通信]
 
-```html
-父组件使用props向子组件传递数据，子组件用$emit发送给父组件修改后的数据。 父组件需要给子组件一个约定的事件名称用于接收子组件$emit传递过来的数据。 子组件$emit的方法名就是父组件约定的事件名
-```
+```js
+//父组件 向子组件传递数据
+<Son :data="a" />
+// 子组件
+props:{
+    data:{
+        type:String
+    }
+}
 
-```html
-父组件：
-<Son :data="data" @getChangeData="getChange" />
-子组件 this.$emit('getChangeData', newData)
+// 父组件向子组件传递方法 并且子组件父组件传递数据
+//父组件--->定义add事件 
+ <Son  @Fadd='add' />
+// 子组件---> 自定义一个事件用 $emit接收 第一个参数为父组件的事件，第二个参数为传给父组件的参数 
+ methods:{
+      add(){
+          this.$emit('Fadd',this.b)
+      }
+  }
 ```
-
 ## $emit/$on[自定义中央事件池]
 
 ```html
@@ -29,12 +39,13 @@ tags:
 ```js
 // bus.js定义一个空的Vue实例
 var Event = new Vue();//一般情况下我们将它抽离成一个公共的bus.js，然后分别引入到其他组件里去
-exprot default Event
+export default  Event
+
 // 组件A
 <div>
     <h3>A组件：{{name}}</h3>
     <button @click="send">将数据发送给C组件</button>
-  </div>
+</div>
 export default {
   data() {
       return {
@@ -176,8 +187,8 @@ state:管理数据的对象相当于data；getters：管理计算属性的对象
 
 #### actions 和 mutations 的区别
 
-- actions 不能直接更新数据，能处理同步或异步代码
-- mutations 直接更新数据只能处理同步代码
+- actions 不能直接更新数据，能处理同步或异步代码 组件使用this.$store.dispatch('fn',value)触发
+- mutations 直接更新数据只能处理同步代码 组件使用 this.$store.commit('fn',value)触发
 
 ## vuex 流程图
 
@@ -199,4 +210,55 @@ state:管理数据的对象相当于data；getters：管理计算属性的对象
 export default new Vuex.store({
   Plugins: [new vuexPersitence().plugin]
 });
+```
+<!--  -->
+## store.js
+```js
+import Vue from 'vue'
+import Vuex from 'vuex'
+import vuexPersitence from 'vuex-persist'
+Vue.use(Vuex)
+
+const Store=new Vuex.Store({
+    // 状态
+    state:{
+        islogin:false
+    },
+    // 计算属性
+    getters:{},
+    // 同步方法 修改state
+    mutations:{
+        login(state,data){
+           state.islogin=data
+        },
+        add(state,n){
+            state.count+=n
+        },
+        reduce(state,n){
+            state.count-=n
+        }
+    },
+    // 异步方法 调用mutations
+    actions:{
+       logins(){
+
+       },
+       addAction(context){
+        context.commit('add',10)
+        context.commit('reduce',1)
+     },
+     reduceAction({commit}){
+         commit('reduce',10)
+     }
+    },
+    // 模块化
+    modules:{
+        
+    },
+    // 插件
+    plugins:[new vuexPersitence().plugin],
+    // 开启严格模式
+    strict:true
+
+})
 ```

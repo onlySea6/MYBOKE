@@ -6,15 +6,19 @@
     "scripts": {
         "blog": "vuepress dev docs",
         "build": "vuepress build docs",
-        "deploy": "deploy.bat"
+        "deploy": ".bat"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "devDependencies": {
-        "vuepress": "^1.2.0"
+        "vuepress": "^1.2.0",
+        "vuepress-plugin-cursor-effects": "^1.0.0",
+        "vuepress-plugin-ribbon": "^1.0.2"
     },
     "dependencies": {
+        "@vuepress-reco/vuepress-plugin-kan-ban-niang": "^1.0.5",
+        "vuepress-plugin-sponsor": "^1.0.0",
         "vuepress-theme-reco": "^1.5.7"
     }
 }

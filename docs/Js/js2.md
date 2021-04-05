@@ -1,4 +1,5 @@
 ---
+showSponsor: true
 title: js 知识 2
 date: 2018-02-15
 categories:
@@ -23,6 +24,7 @@ tags:
 ## 函数作用域
 
 - 作用域属于函数，函数产生作用域，其中存储着运行期上下文的集合
+- 函数的有效作用范围
 
 ### 作用域链
 
@@ -32,6 +34,24 @@ tags:
 
 1. (function(){})()
 2. (function(){}())
+3. [ function() {}() ];
+
+4. ~ function() {}();
+5. ! function() {}();
+6. + function() {}();
+7. - function() {}();
+
+8. delete function() {}();
+9. typeof function() {}();
+10. void function() {}();
+11. new function() {}();
+12. new function() {};
+
+13. var f = function() {}();
+
+14. 1, function() {}();
+15. 1 ^ function() {}();
+16. 1 > function() {}();
 
 - 优点:防止污染全局变量模块化开发、适合做一些初始化的工作
 ### call和apply都是函数的方法统称为立即执行函数 当一个函数调用他们会立即执行
@@ -66,13 +86,18 @@ var max=Math.max.apply(obj,numArr)
 ## call 、apply、bind的优先级(this的归属问题) 
 - new > bind > call/apply >默认this指向
 
-
+## 内存泄漏的几种场景
+1. 意外的全局变量
+2. 遗忘的定时器
+3. 使用不当的闭包
+4. 遗漏的 DOM 元素 -dom移除了 但是js还持有对它的引用 解决：把事件清除了，即可从内存中移除
+5. 网络回调--- 某些场景中，在某个页面发起网络请求，并注册一个回调，且回调函数内持有该页面某些内容，那么，当该页面销毁时，应该注销网络的回调，否则，因为网络持有页面部分内容，也会导致页面部分内容无法被回收
 ## 闭包
+- [阮大神的闭包详解](http://www.ruanyifeng.com/blog/2009/08/learning_javascript_closures.html)
 
 - 当内部函数保存到外部时，将会产生闭包，闭包会导致原有作用域链不释放造成内存泄漏
   -- 内存泄漏：可以使用的空间越来越少
 - 闭包的作用：
-
 1.  实现共有变量 函数累加器
 2.  可以做缓存
 3.  可以实现封装 属性私有化
@@ -118,7 +143,22 @@ var max=Math.max.apply(obj,numArr)
 - every()最终返回布尔值，一假即假，全真则真
 - some()一真即真返回布尔值
 
-## 数组的去重
+## 数组降维
+1. flat方法
+```js
+  let arr = [1,2,[3,4],[5[6,7]]]
+  let arr1 = arr.flat(Infinity)//[1,2,3,4,5,6,7]
+```
+2. join,split
+```js
+  let arr1 = arr.join().split(",")
+```
+
+3. toString,split
+```js
+   let arr1 = arr.toString().split(",")
+```
+## 数组去重
 
 1. Array.from(new Set(arr 数组))有兼容
 2. 双层循环，外层循环元素，内层循环比较值
@@ -138,7 +178,7 @@ for(var i = 0;i < arr.length;i++){
 
 ```js
 var newArr=[]
-for(var i=0;i< arr.length;i++>){
+for(var i=0;i< arr.length;i++){
   if(newArr.indexof(arr[i])===-1){
     newArr.push(arr[i]) //但这个去不了NaN
   }
@@ -163,7 +203,7 @@ for(var i=0;i< arr.length;i++){
 
 ```js
 var obj={} var array=[]
-for(var i=0;i< arr.length;i++>){
+for(var i=0;i< arr.length;i++){
   if(!obj[arr[i]]){
     obj[arr[i]]=1;
     array.push(arr[i])
@@ -172,9 +212,159 @@ for(var i=0;i< arr.length;i++>){
   }
 }
 ```
-## 数组求和最简单的
+## 数组排序
+
+1. 冒泡排序
 ```js
-eval(arr.join("+"))
+let arr=[1,5,6,8,22,44,1,0,65,45,88,7,6,4]
+arr.sort(function(a,b){return b-a}) 
+// a-b 从小到大     b-a从大到小
+```
+2. 快速排序(一分为二)
+```js
+let arr=[1,5,6,8,22,44,1,0,65,45,88,7,6,4]
+function quieck(arr){
+  if(arr.length<=1){
+    return arr
+  }
+  let left=[]
+  let right=[]
+  let indexs=parseInt(arr.length/2)
+  let contentVal=arr[indexs]
+  for(let i=0;i<arr.length;i++){
+    if(i===indexs) continue 
+    if(arr[i]<contentVal){
+      left.push(arr[i])
+    }else{
+      right.push(arr[i])
+    }
+  }
+  return quieck(left).concat(contentVal,quieck(right))
+}
+console.log(quieck(arr))
+```
+3. 希尔排序（性能最好的排序）
+```js
+function xier(arr){
+    var interval = parseInt(arr.length / 2);  //分组间隔设置
+    while(interval > 0){
+        for(var i = 0 ; i < arr.length ; i ++){
+            var n = i;
+            while(arr[n] < arr[n - interval] && n > 0){
+                var temp = arr[n];
+                arr[n] = arr[n - interval];
+                arr[n - interval] = temp;
+                n = n - interval;
+            }
+        }
+        interval = parseInt(interval / 2);
+    }
+    return arr;
+}
+```
+## 数组查找 是否有某个元素
+1. $.isArray(value,array,[ fromIndex ])
+对参数的说明：value：要查找的值，array：数组值 ，fromIndex：开始的位置
+```js
+var arr = [ 4, "Pete", 8, "John" ];
+$.isArray("John", arr);  //3
+$.isArray(4, arr);  //0
+$.isArray("David", arr);  //-1
+$.isArray("Pete", arr, 2);  //-1
+```
+2. arr.find(条件函数)
+官方定义：返回数组中满足条件的第一个元素的值，不存在则返回undefined
+```js
+var array1 = [5, 12, 8, 130, 44];
+var found = array1.find(function(element) {
+  return element > 10;
+});
+console.log(found);
+// expected output: 12
+```
+3. arr.findIndex
+官方定义：返回数组中满足条件的第一个元素的索引值，不存在返回-1
+```js
+var array1 = [5, 12, 8, 130, 44];
+function isLargeNumber(element) {
+  return element > 13;
+}
+console.log(array1.findIndex(isLargeNumber));
+// expected output: 3
+```
+4. indexOf(searchElement,[ fromIndex ])
+方法返回可在数组中找到给定元素的第一个索引，如果不存在则返回-1
+```js
+// 使用indexOf查找所有的匹配项
+var indices = [];
+var array = ['a', 'b', 'a', 'c', 'a', 'd'];
+var element = 'a';
+var idx = array.indexOf(element);
+while (idx != -1) {
+  indices.push(idx);
+  idx = array.indexOf(element, idx + 1);
+}
+console.log(indices);
+// [0, 2, 4]
+```
+5. includes
+includes() 方法用来判断一个数组是否包含一个指定的值，如果是返回 true，否则false
+```js
+[1,2,3].includes(2)//true
+```
+6. filter
+filter() 方法创建一个新的数组，新数组中的元素是通过检查指定数组中符合条件的所有元素。filter() 不会对空数组进行检测。 filter() 不会改变原始数组
+返回数组，包含了符合条件的所有元素。如果没有符合条件的元素则返回空数组。
+```js
+[1,2,3].filter((item)=>item===2)//[2]
+```
+7. map()
+array.map(function(currentValue, index, arr), thisValue)
+map() 方法返回一个新数组，数组中的元素为原始数组元素调用函数处理后的值。
+map() 方法按照原始数组元素顺序依次处理元素。
+注意： map() 不会对空数组进行检测。
+注意： map() 不会改变原始数组。
+8. forEacah()
+array.forEach(function(currentValue, index, arr), thisValue)
+
+## 数组合并
+1. concat
+2. ES6
+```js
+ let arr1 = [1,2]
+  let arr2 = [3,4]
+  let arr = [...arr1,...arr2]//[1,2,3,4]
+```
+```js
+var arr1=['a','b','c'];
+var arr2=['d','e'];
+arr1.push(...arr2); //['a','b','c','d','e']
+```
+
+## 二分查找
+```js
+var search = function (nums, target) {
+    let left = 0;
+    let right = nums.length - 1;
+    while (left <= right) {
+      if (nums[left] === target) return left;
+      if (nums[right] === target) return right;
+  
+      const index = parseInt(left + right, 10);
+      
+      if (nums[index] < target) {
+        left = index + 1;
+      } else {
+        right = index - 1;
+      }
+  
+    }
+    return -1;
+  };
+```
+## 数组求和 最简单的
+```js
+eval(arr.join("+")) //这种是将字符串解析成js代码运行 非常的消耗性能
 ```
 ## Math()方法
 
@@ -204,10 +394,15 @@ var a = function() {
   return obj;
 };
 ```
-## 异步代码
+## 异步代码 宏任务和微任务
 - 异步代码分为微任务和宏任务
 - 宏任务->setTimeout/setInterval
 - 微任务->promise
 - 微任务永远比宏任务先执行 
 - 宏任务先进先出 进行排序
 - 当运行到宏任务有微任务时，先执行微任务
+
+## Service workers 
+- Service workers 本质上充当 Web 应用程序、浏览器与网络（可用时）之间的代理服务器。
+这个 API 旨在创建有效的离线体验，它会拦截网络请求并根据网络是否可用采取来适当的动作、更新来自服务器的的资源。
+它还提供入口以推送通知和访问后台同步 API。

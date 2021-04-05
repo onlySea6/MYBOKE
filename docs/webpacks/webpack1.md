@@ -9,6 +9,8 @@ tags:
 ## Webpack 是什么
 webpack是一个 模块打包工具，支持所有的打包语法，比如 ES Module、CommonJS、CMD、AMD。初期的webpack是用来模块打包js的，发展到现在，已经可以打包很多种文件类型，比如 css、img 。
 优化打包速度最有效的方法就是保持 nodejs 和 webpack 为最新版本。
+webpack 是一个现代 JavaScript 应用程序的静态模块打包器，当 webpack 处理应用程序时，会递归构建一个依赖关系图，其中包含应用程序需要的每个模块，然后将这些模块打包成一个或多个 bundle。
+- [一个学习webpack地址](https://juejin.im/post/6844904079219490830#heading-19)
 ## webpack能干什么
 代码转换 【es6-es5，less-css】， 文件优化 【代码压缩】 ，代码分割 【公共模块抽离】 ，模块合并，自动刷新【热更新】代码校验，自动发布【发布到服务器】
 ## webpacks使用先了解node
@@ -22,7 +24,8 @@ webpack是一个 模块打包工具，支持所有的打包语法，比如 ES Mo
 ```js
  npm init -y
 ```
-2. webpack安装
+
+2.要使用 webpack，那么必然需要安装 webpack、webpack-cli: webpack安装
 - 全局安装 ```npm i -g webpack webpack-cli ``
  - 卸载```npm uninstall -g webpack  webpack-cli```
 - 局部安装 ```npm i -D webpack webpack-cli```
@@ -48,8 +51,8 @@ webpack是一个 模块打包工具，支持所有的打包语法，比如 ES Mo
 
  1. 入口 entry
  2. 出口 output
- 3. 装载机 module-loader
- 4. 插件 plugins
+ 3. 装载机 module-loader 用于把模块原内容按照需求转换成新内容
+ 4. 插件 plugins  在webpack构建流程中的特定时机注入扩展逻辑来改变构建结果或做你想要做的事情
  5. 模式 mode
  6. 优化 optimization
 

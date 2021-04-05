@@ -22,6 +22,8 @@ tags:
 ### 原型、构造函数、实例化对象三者之间的关系
 ![原型图](https://s1.ax1x.com/2020/10/02/0l8iYF.md.png)
 
+### 面向对象的 特点 封装、继承、多态
+
 ## 原型链的几种
 1. 数组-->Array.prototype-->Object.prototype
 2. 字符串-->String.prototype-->Object.prototype

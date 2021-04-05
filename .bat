@@ -1,9 +1,6 @@
 @echo off
 
 REM 构建生成静态文件
-
-
-
 echo building...
 call build.bat
 echo building-complete

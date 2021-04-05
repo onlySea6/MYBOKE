@@ -1,6 +1,7 @@
 ---
 title: react受控组件和ref
 date: 2019-10-11
+sidebar: auto
 categories:
   - react
 tags:
@@ -172,15 +173,17 @@ render(
       a:'new b',
     })
 ```
-## this.setState异步语法
+## this.setState异步语法 有两个参数
 ```js
+//只写值 表示第一个参数-->要修改成的值
+
 // this.setState是异步的所以这里的number 总是state初始化状态
         this.setState({
             number:this.state.number+1
         })
 ```
 - 可以用this.forceUpdate()强制更新 不管数据有没有改变
-##  如果想拿到上次状态的值 setState里写出回调函数
+##  this.setState的第二个参数是回调函数  参数prevstate表示上一次状态
 ```js
    this.setState(prevstate=>(
             //参数prevstate表示上一次状态
@@ -345,4 +348,15 @@ render(
 	</>,
 	document.getElementById('root')
 )
+```
+
+## react项目打包 传上gitee
+1. 二级目录的话 
+```js
+    <BrowserRouter basename='music'>
+    // music 仓库名字
+```
+2. pack.json
+```json
+ "homepage":".",
 ```

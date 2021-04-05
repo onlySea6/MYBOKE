@@ -7,6 +7,21 @@ tags:
  - vue
 ---
 
+## Vue中内置的组件有以下几种：
+
+1. component
+2. transition
+3. transition-group
+4. keep-alive
+5. slot
+- component组件：有两个属性---is    inline-template
+
+渲染一个‘元组件’为动态组件，按照'is'特性的值来渲染成那个组件
+- transition组件：为组件的载入和切换提供动画效果，具有非常强的可定制性，支持16个属性和12个事件
+- transition-group：作为多个元素/组件的过渡效果
+- keep-alive：包裹动态组件时，会缓存不活动的组件实例，而不是销毁它们
+- slot：作为组件模板之中的内容分发插槽，slot元素自身将被替换   `<slot name=""></slot>`
+
 ## keep-alive【缓存组件】
 ```html
 Props：
@@ -48,4 +63,23 @@ new Vue({
     "my-component": () => import("./my-async-component")
   }
 });
+```
+## vue 中使用 echarts
+1. 下载 安装echarts和vue-echarts
+```js
+yarn add echarts vue-echarts
+```
+2. 在main.js全局注册
+```js
+// 因为vue-echarts的这开发的组件 不会插件  且不更新了
+// 所以全局组件
+import VEcharts from 'vue-echarts' 
+Vue.component('wj-charts',VEcharts)
+// wj-charts 自定义的名字
+```
+3. 在开vue-echarts中的 .vue 文件中将固定的宽高删除 这样才能不影响自己的设置的宽高
+4. 在组件中使用
+```js
+<wj-charts :options="option"> </wj-charts>
+// option 即为eacharts官网的option
 ```

@@ -8,36 +8,134 @@ tags:
 ---
 
 ## 路由的安装和使用
+## 创建项目如果没安装 安装-->yarn add vue-router
+配置路由
 ```js
+  //1. 新建路由文件 router.js
 // router.js
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../components/Home";
+const Home = ()=>import('../views/Home.vue') //路由懒加载
+import store from '../store/index'
+const No=()=>import('../views/Not.vue')
+// 安装路由
 Vue.use(VueRouter);
 
-export default new VueRouter({
-  routes: [
+ const routes=[
+    { path: '*',component:No },
+    {path:'/' ,redirect:'/home'},
     {
-      path: "/",
-      component: Home
+        path: "/home",
+        component: Home,
+        meta:{
+            isLogin:true    // 添加该字段，表示进入这个路由是需要登录的
+          }
+    },
+    {
+        path:'/login',
+        component:require('../views/Login.vue').default
+    },
+    {
+        path:'/reg',
+        component:require('../views/Reg.vue').default
     }
   ]
-});
-// main.js
+
+const router = new VueRouter({
+    mode: 'history',
+    base: process.env.BASE_URL,
+    routes,
+  })
+router.beforeEach((to,from,next)=>{
+    if(to.matched.some(res=>res.meta.isLogin)){//判断是否需要登录
+        if (store.state.islogin) {
+            next();
+        }else{
+            next({
+                path:"/login"
+            });
+        }
+
+    }else{
+        next()
+    }
+})
+export default  router
+// 2. 引入路由文件 并将路由挂载到Vue实例上
 import router from "./router";
 new Vue({
   router, // 这里是es6的写法，所以这个名字必须是router，改成别名不会被识别，注意。
   store,
   render: h => h(App)
 }).$mount("#app");
+
+// 3. 路由出口放在指定位置 不如APP.vue
+<template>
+  <div id="app">
+    <keep-alive>   //组件缓存缓存
+        <router-view /> //路由出口
+    </keep-alive>
+  </div>
+</template>
+<script>
+export default {
+  name: 'App',
+  components: {
+  }
+}
+</script>
+<style></style>
+
+```
+## 全局前置守卫 在 export default 之前守卫
+
+```js
+const router = new VueRouter({ ... })
+
+router.beforeEach((to, from, next) => {
+  // to：要进入的目标路由对象
+  // from：当前导航正要离开的路由对象
+  // next：这个函数必须调用，否则导航会报错，并阻塞在这里
+})
+```
+
+- next(false): 中断当前的导航。
+- next('/') 或者 next({ path: '/' }): 跳转到一个不同的地址。当前的导航被中断，然后进行一个新的导航。
+- next(error): (2.4.0+) 如果传入 next 的参数是一个 Error 实例，
+  则导航会被终止且该错误会被传递给 router.onError() 注册过的回调
+
+## 组件内的守卫
+
+- beforeRouteEnter
+- beforeRouteUpdate (2.2 新增)
+- beforeRouteLeave
+
+```js
+export default {
+  beforeRouteEnter(to, from, next) {
+    // 在渲染该组件的对应路由被 confirm 前调用
+    // 不！能！获取组件实例 `this`
+    // 因为当守卫执行前，组件实例还没被创建
+  },
+  beforeRouteUpdate(to, from, next) {
+    // 在当前路由改变，但是该组件被复用时调用
+    // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，
+    // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
+    // 可以访问组件实例 `this`
+  },
+  beforeRouteLeave(to, from, next) {
+    // 导航离开该组件的对应路由时调用
+    // 可以访问组件实例 `this`
+  }
+};
 ```
 
 ## 路由的跳转
 1. 标签跳转
 ```js
 // 默认<router-link />被渲染成a标签
-<router-link to="home">Home</router-link>;
-// 对应的就是rputer.js里配置的
+<router-link to="/home">Home</router-link>;
+// 对应的就是router.js里配置的
 new VueRouter({
   routes: [
     {
@@ -144,3 +242,24 @@ computed: {
     // don't forget to call next()
   }
 ```
+## 使用element-ui 
+1. 先安装 yarn add element-ui -S
+2. 在main.js中
+```js
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+Vue.use(ElementUI);
+```
+3. 直接使用
+
+## 什么是 SPA 单页面，它的优缺点分别是什么
+- SPA（ single-page application ）即一个web项目就只有一个页面（即一个HTML文件,HTML 内容的变换是利用路由机制实现的。
+- 仅在 Web 页面初始化时加载相应的 HTML、JavaScript 和 CSS。一旦页面加载完成，SPA 不会因为用户的操作而进行页面的重新加载或跳转；取而代之的是利用路由机制实现 HTML 内容的变换，UI 与用户的交互，避免页面的重新加载
+* 优点：
+1. 用户体验好、快，内容的改变不需要重新加载整个页面，避免了不必要的跳转和重复渲染；
+2. 基于上面一点，SPA 相对对服务器压力小；
+3. 前后端职责分离，架构清晰，前端进行交互逻辑，后端负责数据处理；
+* 缺点
+1. 初次加载耗时多：为实现单页 Web 应用功能及显示效果，需要在加载页面的时候将 JavaScript、CSS 统一加载，部分页面按需加载；
+2. 前进后退路由管理：由于单页应用在一个页面中显示所有的内容，所以不能使用浏览器的前进后退功能，所有的页面切换需要自己建立堆栈管理；
+3. SEO 难度较大：由于所有的内容都在一个页面中动态替换显示，所以在 SEO 上其有着天然的弱势。

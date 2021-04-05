@@ -45,7 +45,7 @@ tags:
 ```html
  用于渲染数据或对象数据，数组参数：item,index；元素上需要加key属性。对象参数：value, name, index
 ```
-8. v-on
+8. v-on-->@click 
 ```html
 用于在元素上绑定事件，简写：@
   修饰符：.stop - 调用 event.stopPropagation()。阻止冒泡
@@ -53,7 +53,7 @@ tags:
   .capture - 添加事件侦听器时使用 capture 模式。
   .self - 只当事件是从侦听器绑定的元素本身触发时才触发回调。
   .{keyCode | keyAlias} - 只当事件是从特定键触发时才触发回调。
-  .native - 监听组件根元素的原生事件。
+  .native - 监听组件根元素的原生事件。 多用于router-link上的click事件
   .once - 只触发一次回调。
   .left - (2.2.0) 只当点击鼠标左键时触发。
   .right - (2.2.0) 只当点击鼠标右键时触发。
@@ -98,7 +98,7 @@ tags:
 3. beforeMount：实力挂载到dom之前执行的函数，此时的dom是虚拟的还不能使用
 4. mounted：实例挂载dom完成，dom以及渲染完成，可以对dom进行操作（做ajax请求）
 5. beforeUpdate：数据更新执行的函数
-6. undated：数据更新完成执行的函数，更新数据时候执行
+6. updated：数据更新完成执行的函数，更新数据时候执行
 7. beforeDestroy：实例销毁前执行的函数 ---清空定时器
 8. destroyed：销毁成功以后执行的函数
 
@@ -106,3 +106,27 @@ tags:
 
 拦截对象的属性，把每个属性使用Object.defineProperty转成setter和getter形式
 当属性值发生变化执行setter 通过vue把数据重新渲染到页面
+
+## vue打包部署
+1. 在源码根目录中创建一个vue.config.js文件，写以下配置：
+```js
+// vue.config.js
+module.exports = {
+    // projectname 就是你要部署的二级目录名称，如果部署到github后gitee，就是你的仓库名
+    publicPath: "/projectname/",
+    // 或者配置成变量形式，区分生产模式和开发模式
+    // publicPath: process.env.NODE_ENV === 'production' ? '/projectname' : '/'
+
+}
+```
+2. 如果使用了路由router,还应配置base路径：
+```js
+// 挂载路由处
+const router = new VueRouter({
+    mode: 'history',
+    // 配置路由基础路径
+    base: '/projectname/',
+    // base: process.env.BASE_URL,  //默认配置
+    routes
+})
+```

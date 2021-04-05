@@ -1,6 +1,7 @@
 ---
-title: React里的context
+title: React里的属性检查
 date: 2019-03-01
+sidebar: auto
 categories:
   - React
 tags:

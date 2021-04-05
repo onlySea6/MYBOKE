@@ -22,14 +22,17 @@ yarn add react-redux
 2. createStore 创建状态仓库 参数 是reducer 和 初始化状态 
 ```js
 import { createStore } from 'redux'
-let store =  createStore(reducer,state) //返回一个仓库
+let store =  createStore(reducer) //返回一个仓库
 ```
 3. 参数reducer,state 和userender 写法一样
 ```js
-let state={
+let initState={
     count:1
 }
-function reducer(state={},action){
+function reducer(state=initState,action){
+    // 不能改变原数据 但可以改变克隆之后的数据
+    // 深克隆
+    let data=JSON.parse(JSON.stringify(state))
     switch (action.type){
         case 'add': return {...state,count:state.count+1}
         case 'del': return {...state,count:state.count-1}
@@ -54,8 +57,10 @@ let [data,setState]=useState(()=>{
         return  unsubscribe //取消订阅的函数
     },[])
 ```
+## redux流程图
+![redux流程图](https://s3.ax1x.com/2020/12/02/DIwMMn.md.png)
 ## 自动订阅事件 ---connect---
-
+- 当 `Provider`和路由`BrowserRouter`同时存在时 用`Provider`包裹`BrowserRouter`
 - 在单个组件里面使用 只能作为组件导出
 
 1. 定义仓库
@@ -77,55 +82,61 @@ ReactDOM.render(
   document.getElementById('root')
 );
 ```
-3. 在组件里面
+3. 在子组件里面使用
 ```js
+// react-redux为了方便
+import React from 'react'
 import { connect } from 'react-redux';
-
-// mapStateToProps 是一个函数  映射状态到props上
-// mapDispatchToProps 是一个函数 映射方法到props上
-// const mapStateToProps = state=>({
-// 		 name:state.name,
-// 		 Wj:state.name1
-// })
-
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     DW: () => dispatch({ type: 'daH' }),
-//     DJ: () => dispatch({ type: 'daJ', payload: '哭了' }),
-//   };
-// };
-//简写 
- const mapDispatchToProps={
-    cp(){
-        return { type: 'cs' }
-    }
-  }
-export default connect(
-    (state) => ({
-        count: state.reducerone.count,
-        base:state.reducerone.base
-    }),
-    mapDispatchToProps
-  )(App);
-  //App 这是组件
-
-
-class App extends React.Component{
-  constructor(){
-    super()
-  }
-  //传过来的值 以及方法都在props 里面
-  // 直接使用即可
-  render(){
-    retrun <>
-     {this.props.count}
-        {/* {this.props.Wj} */}
-        <button onClick={this.props.cs}>加</button>
-    </>
-  }
+import {CHANG_IDY,DEIDY} from './store/actions'
+// connect高阶函数，接受一个组件返回一个组件
+ function Son(props) {
+    return (
+        <>
+        <h1>{props.state.idy}</h1>
+           <button onClick={props.add}>修改</button>
+           <button onClick={props.removeidy}>删除</button>
+        </>
+    )
 }
+
+// 把state传入props里
+const mapStateToProps=(state)=>{
+return {
+    // 业务场景
+    state
+}
+}
+// 把dispatch派发动作 放到props里
+const mapDispatchToProps=(dispatch)=>{
+    return{
+        // 派发动作
+        add(){
+            dispatch(CHANG_IDY('曾经的那个少年'))
+        },
+        removeidy(){
+            dispatch(DEIDY())
+        }
+    }
+}
+//  connect 参数为两个函数  并且执行包裹要穿的组件
+export default connect(mapStateToProps,mapDispatchToProps)(Son)
+
+// actions.js
+// 修改idy
+export const CHANG_IDY=(value)=>{
+    return {
+        type:'CHANG_IDY',
+        value
+    }
+}
+export const DEIDY=()=>{
+    return{
+        type:'DEIDY'
+    }
+}
+
 ```
-## 仓库合并(combineReducers()) 因为只能有个超级的管理员 一个页面一个reducer一个state
+## reducer合并(combineReducers())
 1. 使用 先引入
 ```js
 import {createStore,combineReducers} from 'redux'
@@ -183,8 +194,9 @@ export default connect(
 ```
 
 ## applyMiddleware 使用中间件(插件) 中间件的功能不一，使用方法不一 react常用thunk,logger
-### 以thunk 为例进行axios请求并渲染页面
+### 以thunk 为例 可以在action里面进行axios或者一些异步的操作
 
+### composer()包裹多个中间件
 1. 声明引入使用中间件 applyMiddleware 在仓库里面
 ```js
 import {createStore,combineReducers,applyMiddleware} from 'redux'
@@ -234,7 +246,7 @@ export default connect(state=>({
 mapDispathchToProps
 ),(Appone);
 // ADD(){
-//     // redux-thunk中间让我们可以用dispatch派发函数 
+//     // redux-thunk中间让我们可以actions 写异步 
 //      return function(dispatch){
 //         setTimeout(()=>{
 //            dispatch({type:'add'}) 
@@ -254,4 +266,116 @@ mapDispathchToProps
     );
   }
 ```
+## 如果同时存在 react-redux 和 路由 router的时候  一定要数据包裹路由
+```js
+import React from 'react'
+import { Provider } from 'react-redux'
+import { BrowserRouter ,Route} from 'react-router-dom'
+import Store from './store/index'
+// redux包裹router
+export default function App() {
+	return (
+		<Provider store={Store}>
+			<BrowserRouter>
+                <Route component={require('./views/Registry').default}/>
+            </BrowserRouter>
+		</Provider>
+	)
+}
+```
+## 状态本地持久化 登录的状态存到本地
+1. 
+```js
+// initState状态值
+let initState={}
+// 状态本地持久化
+if(process.env.NODE_ENV==='development'){
+    initState=JSON.parse(window.sessionStorage.getItem('user'))|| {
+        userInfo:{
+            username:'',
+            state:false
+        }
+    }
+}else{
+    initState= {userInfo:{
+            username:'',
+            state:false
+        }}
+}
+export default (state=initState,action)=>{
+    let data=JSON.parse(JSON.stringify(state))
+    switch(action.type){
+        case 'SUBMIT':
+            data.userInfo=action.data
+            break;
+        default :return state
+    }
+    // 开发环境需要缓存数据，生产环境里不要
+    // console.log(process.env.NODE_ENV)
+    if(process.env.NODE_ENV==='development'){
+        window.sessionStorage.setItem('user',JSON.stringify(data))
+    }
+    return data
+}
+```
+2. 使用redux-persist 插件
+```js
+// 1. 安装 yarn add redux-persist
+// 2. store.js
+import { createStore } from 'redux'
+// 这是插件固定
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
+import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2'
 
+let initState = {
+    state: {
+        islogin:false
+    }
+}
+const reducers = (state = initState, action) => {
+    let data = JSON.parse(JSON.stringify(state))
+    switch (action.type) {
+		case 'LOGIN':
+			data.state.islogin = true
+			return data
+		case 'LOGINOUT':
+			data.state.islogin = false
+			return data
+		default:
+			return state
+	}
+}
+// 这也是固定的
+const persistConfig = {
+	key: 'root',
+	storage: storage,
+	stateReconciler: autoMergeLevel2, // 查看 'Merge Process' 部分的具体情况
+}
+const myPersistReducer = persistReducer(persistConfig, reducers)
+const store = createStore(myPersistReducer)
+export const persistor = persistStore(store)
+export default store
+
+
+// 3. 在index.js 根文件中
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux' //react-redux
+import store from './store/index' //store仓库
+import { persistor } from './store/index' //store仓库
+import { PersistGate } from 'redux-persist/lib/integration/react'  //插件固定
+import App from './App'
+import 'antd/dist/antd.css'
+ReactDOM.render(
+	<Provider store={store}>
+		<PersistGate loading={null} persistor={persistor}>
+			{/*网页内容*/}
+			<App />
+		</PersistGate>
+	</Provider>,
+	document.getElementById('root')
+)
+
+//4. 存储的数据都在localstorage中
+```

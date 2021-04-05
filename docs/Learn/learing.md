@@ -67,22 +67,23 @@ tags:
 - [湾区日报：https://wanqu.co/](https://wanqu.co/)
 每天推送 5 篇优质英文文章。
 
-- [Solidot：https://www.solidot.org/](Solidot：https://www.solidot.org/)
+- [Solidot：https://www.solidot.org/](https://www.solidot.org/)
 
-- [品玩：https://www.pingwest.com/](品玩：https://www.pingwest.com/)
+- [品玩：https://www.pingwest.com/](https://www.pingwest.com/)
 
-- [极客公园：http://www.geekpark.net/](极客公园：http://www.geekpark.net/)
+- [极客公园：http://www.geekpark.net/](http://www.geekpark.net/)
 
 ## 框架
-- [Vue.js：https://cn.vuejs.org/](Vue.js：https://cn.vuejs.org/)
 
-- [React：https://reactjs.org/](React：https://reactjs.org/)
+- [Vue.js：https://cn.vuejs.org/](https://cn.vuejs.org/)
 
-- [Angular：https://angular.cn/](Angular：https://angular.cn/)
+- [React：https://reactjs.org/](https://reactjs.org/)
 
-- [AngularJS：https://angularjs.org/](AngularJS：https://angularjs.org/)
+- [Angular：https://angular.cn/](https://angular.cn/)
 
-- [Koa：https://koa.bootcss.com/](Koa：https://koa.bootcss.com/)
+- [AngularJS：https://angularjs.org/](https://angularjs.org/)
+
+- [Koa：https://koa.bootcss.com/](https://koa.bootcss.com/)
 
 基于 Node.js 平台的下一代 Web 开发框架。
 

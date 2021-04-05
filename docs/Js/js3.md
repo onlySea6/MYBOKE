@@ -1,5 +1,6 @@
 ---
 title: js 知识 3
+showSponsor: true
 date: 2018-03-01
 categories:
   - js
@@ -9,13 +10,14 @@ tags:
 
 ## js 获取 dom 元素的方法
 
-1. 通过 ID 获取 getElementById 返回一个 dom 元素 2.通过 name 属性 getElementByName
-2. 通过标签名获取 getElementByTagName 伪数组
-3. 通过类名 getElementByClassName 伪数组
-4. 通过 css 选择器获取一个元素 querySelector
-5. 选择获取一组元素 querySelectorAll
+1. 通过 ID 获取 getElementById 返回一个 dom 元素 
+2. 通过 name 属性 getElementByName
+3. 通过标签名获取 getElementByTagName 伪数组
+4. 通过类名 getElementByClassName 伪数组
+5. 通过 css 选择器获取一个元素 querySelector
+6. 选择获取一组元素 querySelectorAll
 
-## inderText 和 innerHTML 的区别
+## innerText 和 innerHTML 的区别
 
 - innerHTML 能够解析元素渲染标签
 - innerText 不能解析元素会将标签渲染到页面
@@ -72,3 +74,73 @@ tags:
 ## css 选择器的优先级
 
 - id > class >标签 > \*
+
+## 本地缓存
+1. 利用storage来对数据进行存储(sessionStorage、localStorage）
+   - sessionStorage 
+
+临时的会话存储，只要当前的会话窗口未关闭，存储的信息就不会丢失，即便刷新了页面或者在编辑器中更改了代码，存储的会话信息也不会丢失。
+
+设置存储setItem(key,value) 获取存储getItem(key) 删除存储remove(key)  全部删除clear()
+   -  localStorage
+是一种如果你不主动去清除，会一直将数据存储在客户端的储存方式，即使关闭了浏览器，下次打开的时候仍然可以看到之前存储的未主动清除的数据（即便是杀毒软件或者浏览器自带的清除功能，也不能将localStorage存储的数据清除掉）
+
+设置存储setItem(key,value) 获取存储getItem(key) 删除存储remove(key)  全部删除clear()
+2. cookie
+
+cookie属于较老且最常见用的最多的技术了，cookie的优点很多，用起来也比较方便，默认过期时间是一个会话时间，设置过期时间expires
+
+获取所有的cookie： document.cookie 
+但是缺点也很多：
+cookie兼容所有的浏览器，但其存储的数据是有大小限制的，一般同源是4kb；
+cookie本地存储的数据会被发送到服务器（所以建议在服务器环境下使用cookie）；
+跨域访问问题；浪费带宽等等；
+
+## Ajax 
+
+### 原理
+Ajax的原理简单来说通过浏览器的javascript对象XMLHttpRequest(Ajax引擎)对象向服务器发送异步请求并接收服务器的响应数据，然后用javascript来操作DOM而更新页面。这其中最关键的一步就是从服务器获得请求数据。即用户的请求间接通过Ajax引擎发出而不是通过浏览器直接发出，同时Ajax引擎也接收服务器返回响应的数据，所以不会导致浏览器上的页面全部刷新。
+
+### js中请求的步骤
+1. 创建一个XMLHttpRequest异步对象
+```js
+var ajax=new XMLHttpRequest()
+// 兼容问题
+if(window.XMLHttpRequest){
+     ajax=new XMLHttprequest() //ie7及更高
+}else{
+    ajax=new ActiveXObject('Microsoft.XMLHttp') //IE6、5以下
+}
+```
+2. 设置请求方式和请求地址
+```js
+// true 表示是否异步  异步为true  同步false
+ajax.open('GET','check.php?username='+this.value,true); 
+```
+3. 用send发送请求
+
+4. 接收返回的数据
+```js
+//当AJAX引擎的状态产生改变时触发onreadystatechange属性指向的函数（多次执行）
+//状态值有5个：0请求初始化 1已建立连接 2服务器接收请求 3正在处理请求 4服务器端响应就绪
+
+ajax.onreadystatechange=function(){
+
+//必须在服务器响应就绪，并且HTTP的状态码是200时才接收数据
+//ajax.readyState 获取到服务器响应状态码，必须是4才表示就绪
+//ajax.status 获取到HTTP的状态码，必须是200才表示成功
+if(ajax.readyState==4 && ajax.status==200){
+ajax.responseText
+}}
+
+//ajax.responseText 接收服务器响应回来的内容
+//console.log(ajax.responseText);
+//接收到服务器响应数据后，AJAX工作已完成，可根据结果显示提示信息
+```
+5. 最后，接收返回的数据
+
+## get方法 出现缓存问题
+1. 随机数 url+Math.random()
+2. 时间戳 url+new Date().getTime()
+## 编码问题
+encodeURL()

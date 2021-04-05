@@ -1,6 +1,7 @@
 ---
 title: React生命周期(class组件)
 date: 2019-03-01
+sidebar: auto
 categories:
   - React
 tags:
@@ -21,7 +22,7 @@ tags:
 不常用的生命周期方法--参数是新的props属性和 自己老的state状态  
 返回null 不更新任何状态
 ---
-2. ```render()``` 把虚拟dom变成d真实dom 并插入到dom元素中
+2. ```render()``` 把虚拟dom变成真实dom 并插入到dom元素中
 3. ```componentDidMount()``` dom挂载完成
 - 父子组件的渲染顺序 父组件先渲染(父组件render之后) 子组件开始渲染  子组件挂载完成之后componentDidMount() 父组件最后挂载完成componentDidMount()
 

@@ -265,6 +265,10 @@ module.exports = {
 						link: '/Other/xmjy',
 					},
 					{
+						text: '前端开发流程',
+						link: '/Other/lc',
+					},
+					{
 						text: '关于我',
 						link: '/About/about',
 					},
@@ -511,6 +515,11 @@ module.exports = {
 					collapsable: false,
 					path: 'js5yx',
 				},
+				{
+					title: 'js面试题',
+					collapsable: false,
+					path: 'jsq',
+				},
 			],
 			//css系列
 			'/CssHtml/': [
@@ -523,6 +532,16 @@ module.exports = {
 					title: 'css拓展',
 					collapsable: false,
 					path: 'css',
+				},
+				{
+					title: 'html标准文档',
+					collapsable: false,
+					path: 'improtcss',
+				},
+				{
+					title: 'html转译符',
+					collapsable: false,
+					path: 'zyindex',
 				},
 			],
 			//jquery
@@ -714,8 +733,8 @@ module.exports = {
 				},
 				{
 					title: 'react手写分页组件',
-                    collapsable: false,
-                    path:''
+					collapsable: false,
+					path: 'reactcomponet',
 				},
 				{
 					title: '官方题',

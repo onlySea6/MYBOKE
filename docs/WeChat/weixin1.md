@@ -7,7 +7,8 @@ tags:
   -  微信小程序
 ---
 ## 小程序 介绍和使用
-
+### 设置通用设置--->把提示勾上  
+### 设置项目设置--->使用npm  不校验合法域名
 ### 学习主要内容
 1. 组件化
 2. 模块
@@ -38,6 +39,9 @@ page方法构造页面组件
         "组件名": "../../components/swiper/swiper"
     },
 ```
+### 默认启动首页地址
+- entryPagePath
+
 ### template的使用
 
 - template中：name定义 is使用   
@@ -65,3 +69,7 @@ page方法构造页面组件
 3. 触发自定义事件triggerEvent('eventName',params）
 4. 禁止冒泡：catch:eventName
 5. 互斥绑定：mut-bind:eventName
+
+### 在小程序里字符串 "false"会被当成true 所以设置成 {{false}}
+
+### "{{}}" 双引号和大括号之间不能有空格 不让会解析成字符串

@@ -46,8 +46,22 @@ Page({
 })
  ```
 ## 路由的跳转方式
-1. 常规跳转 -> wx.navigate
-2. 重定向-> wx.redirectTo
-3. 跳转到tabber-> wx.switchTab
-4. 返回后退-> wx.navigateBack
-5.任意跳转-> wx.reLaunch
+js跳转
+
+路由方式	|触发时机|	路由前页面|	路由后页面
+:-:|:-|:-|-:
+初始化|	小程序打开的第一个页面|		|onLoad, onShow
+打开新页面|	调用``` API wx.navigateTo```使用组件 ```<navigator open-type="navigateTo"/>```	|onHide	|onLoad, onShow
+页面重定向|	调用``` API wx.redirectTo```使用组件 ```<navigator open-type="redirectTo"/>```	|onUnload|	onLoad, onShow
+页面返回|	调用``` API wx.navigateBack```使用组件```<navigator open-type="navigateBack">```用户按左上角返回按钮|	onUnload|	onShow
+Tab 切换|	调用 ```API wx.switchTab```使用组件``` <navigator open-type="switchTab"/>```用户切换 Tab|		|各种情况请参考下表
+重启动|	调用 ```API wx.reLaunch```使用组件 ```<navigator open-type="reLaunch"/>```|	onUnload|	onLoad, onShow
+
+
+
+* 注意
+- wx.navigateTo, wx.redirectTo 只能打开非 tabBar 页面。
+- wx.switchTab 只能打开 tabBar 页面。
+- wx.reLaunch 可以打开任意页面
+- 页面底部的 tabBar 由页面决定，即只要是定义为 tabBar 的页面，底部都有 tabBar。
+- 调用页面路由带的参数可以在目标页面的onLoad中获取。

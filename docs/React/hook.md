@@ -2,6 +2,7 @@
 title: reacthook
 date: 2019-10-05
 sidebar: auto
+showSponsor: true
 categories:
   - react
 tags:

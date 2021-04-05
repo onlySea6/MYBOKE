@@ -1,6 +1,7 @@
 ---
 title: 快速开始
 date: 2019-10-30
+sidebar: auto
 categories:
   - react
 tags:
