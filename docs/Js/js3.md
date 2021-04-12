@@ -144,3 +144,39 @@ ajax.responseText
 2. 时间戳 url+new Date().getTime()
 ## 编码问题
 encodeURL()
+
+## JS延迟加载的几种方式
+1. defer 属性
+- HTML 4.01 为 `<script>`标签定义了 defer属性。
+用途：表明脚本在执行时不会影响页面的构造。也就是说，脚本会被延迟到整个页面都解析完毕之后再执行。
+```js
+ <script src="test1.js" defer="defer"></script>
+```
+2. async 属性
+- HTML5 为 `<script>`标签定义了 async属性。与defer属性类似，都用于改变处理脚本的行为。同样，只适用于外部脚本文件。
+目的：不让页面等待脚本下载和执行，从而异步加载页面其他内容。
+3. 动态创建DOM方式
+```js
+//这些代码应被放置在</body>标签前(接近HTML文件底部)
+<script type="text/javascript">  
+   function downloadJSAtOnload() {  
+       varelement = document.createElement("script");  
+       element.src = "defer.js";  
+       document.body.appendChild(element);  
+   }  
+   if (window.addEventListener)  
+      window.addEventListener("load",downloadJSAtOnload, false);  
+   else if (window.attachEvent)  
+      window.attachEvent("onload",downloadJSAtOnload);  
+   else 
+      window.onload =downloadJSAtOnload;  
+</script>  
+```
+4. 使用jQuery的getScript()方法
+```js
+$.getScript("outer.js",function(){//回调函数，成功获取文件后执行的函数  
+      console.log("脚本加载完成")  
+});
+```
+5. 使用setTimeout延迟方法
+6. 让JS最后加载

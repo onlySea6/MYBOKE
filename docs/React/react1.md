@@ -176,6 +176,9 @@ yarn add npm-run-all
         "build": "npm-run-all build-css build-js",
         "test": "node scripts/test.js --env=jsdom"
 },
+3、建立一个index.scss 这里引入各个页面的scss
+4、根目录引入的时候一定是同级的css 
+import './style/index.css'
 ```
 3. 创建项目第三步 yarn build 打包注意事项
 ```

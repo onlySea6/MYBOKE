@@ -764,6 +764,26 @@ module.exports = {
 					collapsable: false,
 					path: '03dom',
 				},
+				{
+					title: 'angular组件通信',
+					collapsable: false,
+					path: '04tongxing',
+				},
+				{
+					title: 'angular生命周期',
+					collapsable: false,
+					path: '05shengming',
+				},
+				{
+					title: 'angular路由',
+					collapsable: false,
+					path: '06luyou',
+				},
+				{
+					title: 'angular跨域',
+					collapsable: false,
+					path: '07ky',
+				},
 			],
 		},
 		// search: false, //禁用内置搜索框
