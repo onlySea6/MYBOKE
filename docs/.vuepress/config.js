@@ -674,6 +674,11 @@ module.exports = {
 					children: ['vue5', 'vue6'],
 				},
 				{
+					title: 'vue项目打包为桌面应用',
+					collapsable: true, //是否折叠侧边栏
+					path:'vue9'
+				},
+				{
 					title: 'vue3.0基础',
 					collapsable: false,
 					path: 'vue7',
