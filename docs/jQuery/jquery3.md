@@ -8,6 +8,60 @@ tags:
 ---
 ## jQ 事件的绑定
 eventName(fun)\on(enentName,fun)
+jQuery主要支持以下事件：
+```
+　　.blur() 表单元素失去焦点。
+
+　　.change() 表单元素的值发生变化
+
+　　.click() 鼠标单击
+
+　　.dblclick() 鼠标双击
+
+　　.focus() 表单元素获得焦点
+
+　　.focusin() 子元素获得焦点
+
+　　.focusout() 子元素失去焦点
+
+　　.hover() 同时为mouseenter和mouseleave事件指定处理函数
+
+　　.keydown() 按下键盘（长时间按键，只返回一个事件）
+
+　　.keypress() 按下键盘（长时间按键，将返回多个事件）
+
+　　.keyup() 松开键盘
+
+　　.load() 元素加载完毕
+
+　　.mousedown() 按下鼠标
+
+　　.mouseenter() 鼠标进入（进入子元素不触发）
+
+　　.mouseleave() 鼠标离开（离开子元素不触发）
+
+　　.mousemove() 鼠标在元素内部移动
+
+　　.mouseout() 鼠标离开（离开子元素也触发）
+
+　　.mouseover() 鼠标进入（进入子元素也触发）
+
+　　.mouseup() 松开鼠标
+
+　　.ready() DOM加载完成
+
+　　.resize() 浏览器窗口的大小发生改变
+
+　　.scroll() 滚动条的位置发生变化
+
+　　.select() 用户选中文本框中的内容
+
+　　.submit() 用户递交表单
+
+　　.toggle() 根据鼠标点击的次数，依次运行多个函数
+
+　　.unload() 用户离开页面
+```
 ```html
  <script>
         $(function () {

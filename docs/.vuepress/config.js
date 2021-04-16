@@ -520,6 +520,11 @@ module.exports = {
 					collapsable: false,
 					path: 'jsq',
 				},
+				{
+					title: 'js高阶',
+					collapsable: false,
+					path: 'jsgj',
+				},
 			],
 			//css系列
 			'/CssHtml/': [
@@ -673,10 +678,15 @@ module.exports = {
 					collapsable: true, //是否折叠侧边栏
 					children: ['vue5', 'vue6'],
 				},
+                {
+                    title: 'vue进阶',
+					collapsable: false,
+					path: 'vue7_2',
+				},
 				{
 					title: 'vue项目打包为桌面应用',
 					collapsable: true, //是否折叠侧边栏
-					path:'vue9'
+					path: 'vue9',
 				},
 				{
 					title: 'vue3.0基础',

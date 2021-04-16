@@ -128,3 +128,20 @@ application/javascript：对于较新的浏览器，建议设为这个值。
 4. 脚本下载完成，浏览器暂停解析 HTML 网页，开始执行下载的脚本。
 5. 脚本执行完毕，浏览器恢复解析 HTML 网页。
 ```
+##### defer属性和async属性到底应该使用哪一个？
+一般来说，如果脚本之间没有依赖关系，就使用async属性，如果脚本之间有依赖关系，就使用defer属性。如果同时使用async和defer属性，后者不起作用，浏览器行为由async属性决定
+
+4. 第四种 脚本的动态加载
+-  `<script>`元素还可以动态生成，生成后再插入页面，从而实现脚本的动态加载。
+```js
+['a.js', 'b.js'].forEach(function(src) {
+  var script = document.createElement('script');
+  script.src = src;
+  document.head.appendChild(script);
+});
+```
+##### 加载使用的协议
+- 根据页面本身的协议来决定加载协议，这时可以采用下面的写法。
+```js
+<script src="//example.js"></script>
+```

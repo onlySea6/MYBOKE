@@ -85,3 +85,8 @@ axios.get('/login').then(res=>{
     console.log(res)
 })
 ```
+- 如果你想在稍后移除拦截器，可以这样：
+```js
+var myInterceptor = axios.interceptors.request.use(function () {/*...*/});
+axios.interceptors.request.eject(myInterceptor);
+```
