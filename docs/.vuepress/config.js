@@ -678,8 +678,13 @@ module.exports = {
 					collapsable: true, //是否折叠侧边栏
 					children: ['vue5', 'vue6'],
 				},
-                {
-                    title: 'vue进阶',
+				{
+					title: 'vue的反向代理',
+					collapsable: false,
+					path: 'vue10nginx',
+				},
+				{
+					title: 'vue进阶',
 					collapsable: false,
 					path: 'vue7_2',
 				},
@@ -742,7 +747,7 @@ module.exports = {
 					path: 'mybox',
 				},
 				{
-					title: 'react适配移动端',
+					title: 'react写H5',
 					collapsable: false,
 					path: 'reactapp',
 				},
