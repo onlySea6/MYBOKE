@@ -136,3 +136,40 @@ background: url(../static/os.jpg);
 
 ## 手机的背景图必须用
 - background-size
+
+## em和rem的区别
+- em 如果没有设置即参照父容器的字号大小或浏览器默认字号大小
+```
+<div>
+    我是父元素div
+    <p>
+        我是子元素p
+        <span>我是孙元素span</span>
+    </p>
+</div>
+<!--  -->
+div {
+  font-size: 40px;
+  width: 10em; /* 400px */
+  height: 10em;
+  border: solid 1px black;
+}
+p {
+  font-size: 0.5em; /* 20px */ 
+  width: 10em; /* 200px */
+  height: 10em;
+  border: solid 1px red;
+}
+```
+- rem 根据根`<html>`元素。通常做法是给html元素设置一个字体大小，然后其他元素的长度单位就为rem
+```css
+html {
+    font-size: 10px;
+    }
+div {
+    font-size: 4rem; /* 40px */
+    width: 30rem;  /* 300px */
+    height: 30rem;
+    border: solid 1px black;
+}
+```
