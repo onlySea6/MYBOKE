@@ -747,7 +747,12 @@ module.exports = {
 					path: 'mybox',
 				},
 				{
-					title: 'react写H5',
+					title: 'react的23问',
+					collapsable: false,
+					path: 'react23',
+				},
+				{
+					title: 'react写H5用的',
 					collapsable: false,
 					path: 'reactapp',
 				},
