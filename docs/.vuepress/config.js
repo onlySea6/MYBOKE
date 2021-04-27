@@ -546,6 +546,11 @@ module.exports = {
 				{
 					title: 'html转译符',
 					collapsable: false,
+					path: 'html字符',
+				},
+				{
+					title: 'html转译符',
+					collapsable: false,
 					path: 'zyindex',
 				},
 			],
