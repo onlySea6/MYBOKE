@@ -7,12 +7,6 @@ categories:
 tags:
   - index.html转译符
 ---
-## index.html转译符
-- 网页上的符号不是自己打上去的 是转译上去的
-- 常用的几个
-- ![常用转译符](https://ftp.bmp.ovh/imgs/2021/04/dd42eda1b65288a3.png)
-
-- [转译符大全](https://tool.oschina.net/commons?type=2) 
 
 ## 针对颜色 简写
 - 双数为简写
