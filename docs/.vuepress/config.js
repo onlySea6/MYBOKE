@@ -435,6 +435,11 @@ module.exports = {
 					path: 'mongodb',
 				},
 				{
+					title: 'mysql数据库',
+					collapsable: false,
+					path: 'mysql',
+				},
+				{
 					title: '服务器开启接口',
 					collapsable: false,
 					path: 'Linuk',
@@ -552,6 +557,11 @@ module.exports = {
 					title: 'html转译符',
 					collapsable: false,
 					path: 'zyindex',
+				},
+				{
+					title: '封装的方法',
+					collapsable: false,
+					path: 'SomeZz',
 				},
 			],
 			//jquery

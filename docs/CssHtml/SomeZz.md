@@ -122,10 +122,13 @@ export const isWeiXin = () => {
     return ua.match(/microMessenger/i) == 'micromessenger'
 }
 ```
-20.  是否是移动端export const isDeviceMobile = () => {
+20.  是否是移动端
+```js
+export const isDeviceMobile = () => {
     return /android|webos|iphone|ipod|balckberry/i.test(ua)
 }
-21. 是否是QQ浏览器
+```
+21.  是否是QQ浏览器
 ```js
 export const isQQBrowser = () => {
     return !!ua.match(/mqqbrowser|qzone|qqbrowser|qbwebviewtype/i)
