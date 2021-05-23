@@ -130,3 +130,30 @@ const router = new VueRouter({
     routes
 })
 ```
+
+## 自定义指令
+```js
+// 注册一个全局自定义指令 `v-focus`
+Vue.directive('focus', {
+  // 当被绑定的元素插入到 DOM 中时……
+  inserted: function (el) {
+    // 聚焦元素
+    el.focus()
+  }
+})
+```
+- 如果想注册局部指令，组件中也接受一个 directives 的选项：
+```js
+directives: {
+  focus: {
+    // 指令的定义
+    inserted: function (el) {
+      el.focus()
+    }
+  }
+}
+```
+- 然后你可以在模板中任何元素上使用新的 v-focus property，如下：
+```html
+<input v-focus>
+```
