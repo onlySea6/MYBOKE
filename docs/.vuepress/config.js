@@ -564,10 +564,10 @@ module.exports = {
 					path: 'SomeZz',
                 },
                 {
-                    title: 'css题',
-                    collapsable: fasle,
-                    path:'cssms'
-                }
+					title: 'css the need',
+					collapsable: false,
+					path: 'cssms',
+                },
 			],
 			//jquery
 			'/jQuery/': [
