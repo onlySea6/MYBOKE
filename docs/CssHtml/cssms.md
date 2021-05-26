@@ -184,5 +184,8 @@ XSS（跨站脚本攻击）是指攻击者在返回的HTML中嵌入javascript脚
 - 文本编辑器插件：Sublime Text, Atom
 - 代码库：stylelint (Node.js, PostCSS), css-validator (Node.js)
 
-
+## 图片加载失败处理的方法 
+```html
+<img src="abc.jpg" onerror="onerror=null;src='123.jpg'" />
+```
 

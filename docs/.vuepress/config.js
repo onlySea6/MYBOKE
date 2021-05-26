@@ -402,6 +402,16 @@ module.exports = {
 					collapsable: false, //是否折叠侧边栏
 					path: 'page1',
 				},
+                {
+					title: '微信接入',
+					collapsable: false, //是否折叠侧边栏
+					path: 'wxzf',
+				},
+                {
+					title: '支付宝接入',
+					collapsable: false, //是否折叠侧边栏
+					path: 'zfbzf',
+				},
 			],
 			//webpack
 			'/webpacks/': [

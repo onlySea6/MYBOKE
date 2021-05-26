@@ -36,7 +36,7 @@ const bodyParser = require("body-parser");
 // 跨域
 const cors = require("cors");
 // 1.2 配置post请求
-exApp.use(bodyParser.urlencoded({ extended: true }));
+exApp.use(bodyParser.urlencoded({ extended: false }));
 exApp.use(bodyParser.json());
 // 1.3 开启跨域设置
 exApp.use(cors());
