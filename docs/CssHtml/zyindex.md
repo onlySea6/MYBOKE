@@ -210,3 +210,57 @@ h1 {
 
 ### CSS重置
 [Should You Reset Your CSS](https://www.webfx.com/blog/web-design/should-you-reset-your-css/)
+
+
+### 禁止用户缩放网页 user-scalable=0
+```html
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
+```
+
+### 伪元素 用于设置元素指定部分的样式。
+- 设置元素的首字母、首行的样式
+- 在元素的内容之前或之后插入内容
+
+选择器 |	例子 |	例子描述
+:-:|:-|-:
+::after|	p::after|	在每个 < p > 元素之后插入内容。
+::before|	p::before|	在每个 < p > 元素之前插入内容。
+::first-letter|	p::first-letter|	选择每个 < p > 元素的首字母,只适用于块级元素。
+::first-line|	p::first-line|	选择每个 < p > 元素的首行。
+::selection|	p::selection|	选择用户选择的元素部分。
+
+### 所有 CSS 伪类 用于定义元素的特殊状态。
+
+选择器|	例子|	例子描述
+:-:|:-|-:
+:active	a:active|	选择活动的链接。
+:checked|	input:checked|	选择每个被选中的 < input> 元素。
+:disabled|	input:disabled|	选择每个被禁用的 < input> 元素。
+:empty|	p:empty|	选择没有子元素的每个 < p> 元素。
+:enabled|	input:enabled|	选择每个已启用的 < input> 元素。
+:first-child|	p:first-child|	选择作为其父的首个子元素的每个 < p> 元素。
+:first-of-type|	p:first-of-type|	选择作为其父的首个 < p> 元素的每个 < p> 元素。
+:focus|	input:focus|	选择获得焦点的 < input> 元素。
+:hover|	a:hover|	选择鼠标悬停其上的链接。
+:in-range|	input:in-range|	选择具有指定范围内的值的 < input> 元素。
+:invalid|	input:invalid|	选择所有具有无效值的 < input> 元素。
+:lang(language)|	p:lang(it)|	选择每个 lang 属性值以 "it" 开头的 < p> 元素。
+:last-child|	p:last-child|	选择作为其父的最后一个子元素的每个 < p> 元素。
+:last-of-type|	p:last-of-type|	选择作为其父的最后一个 < p> 元素的每个 < p> 元素。
+:link|	a:link|	选择所有未被访问的链接。
+:not(selector)|	:not(p)|	选择每个非 < p> 元素的元素。
+:nth-child(n)|	p:nth-child(2)|	选择作为其父的第二个子元素的每个 < p> 元素。
+:nth-last-child(n)|	p:nth-last-child(2)|	选择作为父的第二个子元素的每个< p>元素，从最后一个子元素计数。
+:nth-last-of-type(n)|	p:nth-last-of-type(2)|	选择作为父的第二个< p>元素的每个< p>元素，从最后一个子元素计数
+:nth-of-type(n)|	p:nth-of-type(2)|	选择作为其父的第二个 < p> 元素的每个 < p> 元素。
+:only-of-type|	p:only-of-type|	选择作为其父的唯一 < p> 元素的每个 < p> 元素。
+:only-child|	p:only-child|	选择作为其父的唯一子元素的 < p> 元素。
+:optional|	input:optional|	选择不带 "required" 属性的 < input> 元素。
+:out-of-range|	input:out-of-range|	选择值在指定范围之外的 < input> 元素。
+:read-only|	input:read-only|	选择指定了 "readonly" 属性的 < input> 元素。
+:read-write|	input:read-write|	选择不带 "readonly" 属性的 < input> 元素。
+:required|	input:required|	选择指定了 "required" 属性的 < input> 元素。
+:root|	root|	选择元素的根元素。
+:target|	#news:target|	选择当前活动的 #news 元素（单击包含该锚名称的 URL）。
+:valid|	input:valid|	选择所有具有有效值的 < input> 元素。
+:visited|	a:visited|	选择所有已访问的链接。

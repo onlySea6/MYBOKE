@@ -554,7 +554,7 @@ module.exports = {
 					path: 'html字符',
 				},
 				{
-					title: 'html转译符',
+					title: 'css注意',
 					collapsable: false,
 					path: 'zyindex',
 				},
@@ -562,7 +562,12 @@ module.exports = {
 					title: '封装的方法',
 					collapsable: false,
 					path: 'SomeZz',
-				},
+                },
+                {
+                    title: 'css题',
+                    collapsable: fasle,
+                    path:'cssms'
+                }
 			],
 			//jquery
 			'/jQuery/': [

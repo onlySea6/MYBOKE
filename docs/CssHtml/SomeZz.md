@@ -854,3 +854,20 @@ export const appendQuery = (url, key, value) => {
     return url;
 }
 ```
+61. 计算数组各项的重复次数
+```js
+var arr=['胡将','胡将','hujiang','胡将','胡江','hujiang'];
+var obj={};
+arr.sort();    //先排序
+for(var i=0;i<arr.length;){
+	var con=0;
+	for(var j=i;j<arr.length;j++){
+		if(arr[i]===arr[j]){
+			con++
+		}
+	}
+	obj[arr[i]]=con; 
+	i=i+con;    //跳过重复的值
+}
+console.log(obj);  //{ hujiang: 2, '胡将': 3, '胡江': 1 }
+```
