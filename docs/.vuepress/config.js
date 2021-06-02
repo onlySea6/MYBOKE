@@ -67,7 +67,7 @@ module.exports = {
 			},
 		},
 	],
-	base: '/wangjie/',
+	// base: '/wangjie/', //用于gitee仓库的部署
 	themeConfig: {
 		//添加评论功能 主题自带的
 		valineConfig: {
@@ -864,6 +864,8 @@ module.exports = {
 		// 默认为 false，设置为 true 来启用
 		editLinks: true,
 		// 自定义编辑链接的文本。默认是 "Edit this page"
-		editLinkText: '帮助我们改进页面！',
+        editLinkText: '帮助我们改进页面！',
+        record: '京ICP备19038026号-2',
+        recordLink: 'https://beian.miit.gov.cn'
 	},
 }

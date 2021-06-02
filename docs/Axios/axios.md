@@ -222,3 +222,17 @@ axios.all([
     console.log(err)
 })
 ```
+## axios 请求头
+```js
+import axios from 'axios'
+import {getToken} from '../util/auth'
+const Axios = axios.create({
+	baseURL: 'http://:4000', // url = base url + request url
+	timeout: 5000,
+})
+Axios.interceptors.request.use(config => {
+    config.headers.common['X-Token']=getToken()//请求头携带的参数
+    return config;
+})
+export default Axios
+```
