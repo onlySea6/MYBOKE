@@ -448,7 +448,12 @@ module.exports = {
 					title: 'mysql数据库',
 					collapsable: false,
 					path: 'mysql',
-				},
+                },
+                {
+                    title: 'mysql数据库语句',
+                    collapsable: false,
+                    path: 'mysql2',
+                },
 				{
 					title: '服务器开启接口',
 					collapsable: false,

@@ -65,6 +65,9 @@ let wirteMySQL=(sql,end)=>{
 		connection.end()
 	})
 }
+// 模糊查询使用 LIKE  但是影响效率
+// var sql = 'SELECT * FROM user WHERE `name` LIKE '李%''; //开头为李的 李姓人
+
 //查询数据 的语句查所有的 语句
 // var sql = 'SELECT * FROM user';
 //查询 单个或者多个数据的语句
