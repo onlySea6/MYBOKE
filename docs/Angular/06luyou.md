@@ -76,7 +76,7 @@ imports: [
   ],
 ```
 ### 四、添加路由出口
-- 打开AppComponent的模板，把<router-outlet>添加进去，<router-outlet>会告诉路由器要在哪里显示路由的试图。
+- 打开AppComponent的模板，把< router-outlet>添加进去，< router-outlet >会告诉路由器要在哪里显示路由的试图。
 ```
 <router-outlet></router-outlet>   // src/app/app.component.html
 ```

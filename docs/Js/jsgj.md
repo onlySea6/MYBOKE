@@ -117,7 +117,7 @@ application/javascript：对于较新的浏览器，建议设为这个值。
 4. 浏览器完成解析 HTML 网页，此时再回过头执行已经下载完成的脚本。
 ```
 3. 第三种async 属性
-- 解决“阻塞效应”的另一个方法是对<script>元素加入async属性。
+- 解决“阻塞效应”的另一个方法是对< script >元素加入async属性。
 ```js
 <script src="a.js" async></script>
 ```

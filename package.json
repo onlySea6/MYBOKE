@@ -18,6 +18,8 @@
     },
     "dependencies": {
         "@vuepress-reco/vuepress-plugin-kan-ban-niang": "^1.0.5",
+        "is-core-module": "^2.4.0",
+        "v-dialogs": "^2.1.4",
         "vuepress-plugin-sponsor": "^1.0.0",
         "vuepress-theme-reco": "^1.5.7"
     }

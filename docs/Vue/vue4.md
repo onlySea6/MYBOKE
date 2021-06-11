@@ -65,21 +65,29 @@ new Vue({
 });
 ```
 ## vue 中使用 echarts
-1. 下载 安装echarts和vue-echarts
+1. 下载 安装echarts
 ```js
-yarn add echarts vue-echarts
+yarn add echarts 
 ```
 2. 在main.js全局注册
 ```js
-// 因为vue-echarts的这开发的组件 不会插件  且不更新了
-// 所以全局组件
-import VEcharts from 'vue-echarts' 
-Vue.component('wj-charts',VEcharts)
-// wj-charts 自定义的名字
+import * as echarts from 'echarts'
+Vue.prototype.$echarts = echarts;
 ```
-3. 在开vue-echarts中的 .vue 文件中将固定的宽高删除 这样才能不影响自己的设置的宽高
-4. 在组件中使用
+3. 在组件中定义一个容器
+```html
+ <div id="myChart" style="width: 90%;height: 400px;"> </div>
+```
+4. 将数据都挂载到上面
 ```js
-<wj-charts :options="option"> </wj-charts>
-// option 即为eacharts官网的option
+ mounted(){
+      this.oks()
+  },
+methods: {
+      oks(){
+           let myChart = this.$echarts.init(document.getElementById('myChart'))
+           myChart.setOption(this.option)
+      }
+  },
+//   this.option 即为要挂在的内容
 ```
