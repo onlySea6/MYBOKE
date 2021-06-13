@@ -113,3 +113,8 @@ git branch -a
 git checkout [分支的名字]
 ```
 - 当查看完以后，要切换到主分支
+
+### 电脑用git账号密码登录 没有提示输入账号和密码
+```js
+git config --global http.sslVerify false
+```
