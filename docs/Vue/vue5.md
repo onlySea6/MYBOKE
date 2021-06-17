@@ -252,6 +252,142 @@ Vue.use(ElementUI);
 ```
 3. 直接使用
 
+## 路由的权限控制
+1. 通过router.beforeEach() 路由拦截的方式实现。
+```js
+//路由表有
+const router = new Router({
+  routes: [{
+        path: '/',
+        redirect: '/index1'
+    }, {
+        path: '/index1',
+        name: 'Index1',
+        component: Index1
+    }, {
+        path: '/index2',
+        name: 'Index2',
+        component: Index2
+    }, {
+        path: '/index3',
+        name: 'Index3',
+        component: Index3
+    }]
+})
+// 在 router/index 中，通过router.beforeEach() 路由拦截去进行权限判断：
+
+router.beforeEach((to, from, next) => {
+    //to: 从哪个路由来
+    //from: 去哪个路由
+    //next：是一个方法，使用路由拦截，必须在后面添加next()，否则路由无法跳转
+
+    //假设我们从后台获取的权限为：
+    const list = ['index1', 'index2'];
+
+    //如果没有匹配到，证明没有权限
+    if(list.indexOf(to.name) === -1) {
+        //next('/login');
+
+        ... //或者执行其他操作
+    }
+
+    //路由拦截可根据项目返回的权限自行调整，这里只是做了一个简单的例子
+})
+export default router;
+```
+2. 通过vue-router 官方提供的addRoutes()来进行动态路由注入，注意 该方法只有vue-router的版本 >= 2.2才有效。
+```js
+// 1. 需要配置静态的路由表，比如登录、注册页，其他路由通过动态注入
+const router = new Router({
+  routes: [{
+        path: '/',
+        redirect: '/login'
+    }, {
+        path: '/login',
+        name: 'login',
+        component: Login
+    }]
+})
+
+export default router;
+// 2. 假设我们在 登录 的时候，后端返回的权限列表如下：
+//leaf: 是我们用来判断是否唯一的
+//component：一般来说后端返回给我们的就是一个路径而已，所以我们需要自行的去加载组件
+export const routers = [{
+    path: '/main',
+    name: 'main',
+    leaf: false,
+    component: 'pages/main',
+    children: [{
+        path: '/main/index1',
+        name: 'index1',
+        component: 'pages/index1',
+        leaf: true
+    }, {
+        path: '/main/index2',
+        name: 'index2',
+        component: 'pages/index2',
+        leaf: true
+    }, {
+        path: '/main/index3',
+        name: 'index3',
+        component: 'pages/index3',
+        leaf: true
+    }, {
+        path: '/main/index4',
+        name: 'index4',
+        component: 'pages/index4',
+        leaf: true
+    }]
+}, {
+    path: '*',
+    component: 'pages/noFind',
+    leaf: true
+}]
+// 可以写个方法去再次过滤返回回来的路由列表
+/**
+ * @param routers 初始数据，为数组格式，一般来说是个空数组
+ * @param data 后端返回的路由列表数据
+ */
+function generaMenu(routers, data) {
+  data.forEach((item)=>{
+    let menu = Object.assign({},item);
+    menu.component = import(`@/${menu.component}.vue`);
+    if(!item.leaf) {
+      menu.children = [];
+      generaMenu(menu.children,item.children);
+        menu.redirect = menu.children[0].path; //如果需要重定向的话，可以根据自己的需求进行选择
+    }
+    routers.push(menu);
+  })
+}
+```
+* 注意 如果有用到404的路由话，需要把404这个路由放到整个路由表的最后一个，否则，因为一开始我们是没有对应的动态路由，默认就跳转到了404页面了，所以静态路由表不配置404路由，与动态路由一起注入到路由表中。
+
+- 然后通过 addRoutes() 这个方法把路由给注入到路由表里面，之后就可以访问已注入的路由了：
+
+* 这个方法路由会一直累加上去所以对router/index 进行改造一下：
+```js
+const createRouter = () => new Router({
+  routes: [{
+    path: '/',
+    redirect: '/login'
+  }, {
+    path: '/login',
+    name: 'login',
+    component: Login
+  }]
+})
+
+const router = createRouter()
+
+//重新实例化一个新的路由表，替换之前的路由表，然后将这个方法导出
+export function resetRouter() {
+  const newRouter = createRouter();
+  router.matcher = newRouter.matcher; // the relevant part
+}
+// 在用户退出的时候，重新执行下 resetRouter() 这个方法就可以重新初始化静态路由表
+```
 ## 什么是 SPA 单页面，它的优缺点分别是什么
 - SPA（ single-page application ）即一个web项目就只有一个页面（即一个HTML文件,HTML 内容的变换是利用路由机制实现的。
 - 仅在 Web 页面初始化时加载相应的 HTML、JavaScript 和 CSS。一旦页面加载完成，SPA 不会因为用户的操作而进行页面的重新加载或跳转；取而代之的是利用路由机制实现 HTML 内容的变换，UI 与用户的交互，避免页面的重新加载

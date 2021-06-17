@@ -25,6 +25,18 @@ tags:
 -  [详细地址](https://www.runoob.com/html/html5-canvas.html)
 
 ## overflow:hidden:当内容溢出元素框时，内容会被修剪，并且其余内容是不可见的
+```css
+overflow: hidden;
+text-overflow: ellipsis;
+display:-webkit-box;
+-webkit-box-orient: vertical;
+-webkit-line-clamp:1;
+```
+## css样式控制文字强制换行
+```css
+ word-wrap:break-all /*中文和英文都强制换行 */
+word-wrap:break-word/*针对中文换行*/
+```
 
 ## text-overflow:ellipsis:当文本溢出包含元素时，显示省略符号来代表被修剪的文本
 

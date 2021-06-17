@@ -169,3 +169,62 @@ cancelItem(index) {
 ```
 ## 使用vue渲染大量数据时应该怎么优化？说下你的思路！
 - 使用 Object.freeze 方法了，它可以冻结一个对象(注意它不并是 vue 特有的 api)。
+
+## 实现简单的切换导航
+```html
+<ul class="consultingService_nav">
+    <li v-for="(item,index) in consultingService_nav" :key="index" :class="{'on':active == index}"
+        @click="active=index">{{item.name}}</li>
+</ul>
+
+<!-- data定义导航数据 -->
+ consultingService_nav: [{
+        name: '要闻'
+    }, {
+        name: '资讯'
+    }, {
+        name: '活动'
+    }, {
+        name: '直播'
+    }],
+```
+- 样式最重要 尤其是&.on 和&.after
+```scss
+.consultingService_nav {
+    display: flex;
+    padding: 0 38rpx;
+    justify-content: space-between;
+    margin-bottom: 40rpx;
+    margin-top: 40rpx;
+    li {
+        font-size: 36rpx;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        color: #777C81;
+        line-height: 48rpx;
+        margin-right: 68rpx;
+
+        &:last-child {
+            margin-right: 0;
+        }
+        // 这里是点击切换导航的样式
+        &.on {
+            font-weight: 600;
+            color: #2C333A;
+            position: relative;
+
+            &:after {
+                content: '';
+                position: absolute;
+                width: 54rpx;
+                height: 6rpx;
+                background: #EC6E6D;
+                border-radius: 44rpx;
+                left: 50%;
+                bottom: -8rpx;
+                transform: translateX(-50%);
+            }
+        }
+    }
+}
+```
