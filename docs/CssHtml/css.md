@@ -31,6 +31,9 @@ text-overflow: ellipsis;
 display:-webkit-box;
 -webkit-box-orient: vertical;
 -webkit-line-clamp:1;
+display: block;
+white-space: nowrap;
+width: 500rpx;
 ```
 ## css样式控制文字强制换行
 ```css
