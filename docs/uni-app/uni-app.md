@@ -9,6 +9,14 @@ tags:
 ---
 ## uni-app 个人认为就是 微信小程序和vue的结合体 但是因为个别兼容问题需要看文档
 
+## 遇到的兼容我吐了啊
+```js
+// 使用onLoad 在H5页面 加载数据没问题，但是到移动端 apk  直接拉裤
+// 推荐使用created
+
+```
+
+
 ## 遇到的问题
 1. 组件传递数据出现接收 [Objec , Object]的问题 解决：
 -  传的时候 lists= encodeURIComponent(JSON.stringify(lists))	
