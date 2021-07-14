@@ -157,3 +157,24 @@ directives: {
 ```html
 <input v-focus>
 ```
+
+## vue的优缺点
+1. 优点
+```js
+// 渐进式框架  MVVM模式 组件复用 单页面应用
+```
+2. 缺点
+```js
+// 使用的object.的defineproperty不支持IE8以下的浏览器
+// csr 先天不足，首屏性能问题（白屏）
+// 对这个爬虫很不友好
+```
+## 使用vue渲染大量数据时应该怎么优化？说下你的思路！
+- Object.freeze
+```js
+// 适合一些 big data的业务场景。尤其是做管理后台的时候，经常会有一些超大数据量的 table，或者一个含有 n 多数据的图表，这种数据量很大的东西使用起来最明显的感受就是卡。但其实很多时候其实这些数据其实并不需要响应式变化，这时候你就可以使用 Object.freeze 方法了，它可以冻结一个对象(注意它不并是 vue 特有的 api)。
+// 当你把一个普通的 JavaScript 对象传给 Vue 实例的 data 选项，Vue 将遍历此对象所有的属性，并使用 Object.defineProperty 把这些属性全部转为 getter/setter，它们让 Vue 能进行追踪依赖，在属性被访问和修改时通知变化。
+// 使用了 Object.freeze 之后，不仅可以减少 observer 的开销，还能减少不少内存开销。
+// 使用方式：
+this.item = Object.freeze(Object.assign({}, this.item))
+```

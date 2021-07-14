@@ -31,9 +31,13 @@ max - 数字。最多可以缓存多少组件实例。
 用法：
 <keep-alive> 包裹动态组件时，会缓存不活动的组件实例，而不是销毁它们。
 和 <transition> 相似，<keep-alive> 是一个抽象组件：它自身不会渲染一个 DOM 元素，也不会出现在组件的父组件链中。
-
 ```
-```js
+### keep-alive 生命周期
+```html
+activated： 页面第一次进入的时候，钩子触发的顺序是created->mounted->activated
+deactivated: 页面退出的时候会触发deactivated，当再次前进或者后退的时候只触发activated
+```
+```html
 <!-- 基本 -->
 <keep-alive>
   <component :is="view"></component>

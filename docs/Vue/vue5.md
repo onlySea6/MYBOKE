@@ -242,6 +242,24 @@ computed: {
     // don't forget to call next()
   }
 ```
+## 切换到新路由时，面要滚动到顶部或保持原先的滚动位置
+```js
+// 在路由实例中配置
+scrollBehavior(ro,form,savedPosition){
+//滚动到顶部
+return {x:0,y:0}
+//保持原先的滚动位置
+return {selector：falsy}
+}
+```
+
+## vue渲染模板时怎么保留模板中的HTML注释呢
+```js
+<template comments>
+  ...
+</template>
+```
+
 ## 使用element-ui 
 1. 先安装 yarn add element-ui -S
 2. 在main.js中
