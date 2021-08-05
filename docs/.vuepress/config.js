@@ -1,48 +1,39 @@
 module.exports = {
-	// 主页图片下第一行字
-	title: '光のN^',
-	// 端口配置 80是默认端口
-	// port: 80,
-	// 主页图片下第二行字
-	description: '欢迎YOU',
-	// 主题设置（默认）
-	theme: 'reco', //必填：使用vuepress-theme-ting 主题
-	head: [
-		// 改变title的图标，图标放在public文件夹中，herf后直接 '/图片.格式' ，不要./
-		[
-			'link',
-			{
-				rel: 'icon',
-				href: '/繁星.png',
-			},
-		],
-	],
-	plugins: [
-		'@vuepress/plugin-back-to-top',
-		'@vuepress/plugin-medium-zoom',
-		'@vuepress-reco/vuepress-plugin-kan-ban-niang',
-		'ribbon',
-		{
-			size: 90, // width of the ribbon, default: 90
-			opacity: 0.8, // opacity of the ribbon, default: 0.3
-			zIndex: -1, // z-index property of the background, default: -1
-		},
-		'cursor-effects',
-		{
-			size: 2, // size of the particle, default: 2
-			shape: ['star' | 'circle'], // shape of the particle, default: 'star'
-			zIndex: 999999999, // z-index property of the canvas, default: 999999999
-		},
-
-		// 'vuepress-plugin-sponsor',
-		// {
-		// 	theme: 'drinks',
-		// 	alipay: '/zfb.jpg',
-		// 	wechat: '/wx.jpg',
-		// 	qq: '',
-		// 	paypal: '',
-		// 	duration: 2000,
-		// },
+    // 主页图片下第一行字
+    title: '光のN^',
+    // 端口配置 80是默认端口
+    // port: 80,
+    // 主页图片下第二行字
+    description: '欢迎YOU',
+    // 主题设置（默认）
+    theme: 'reco', //必填：使用vuepress-theme-ting 主题
+    head: [
+        // 改变title的图标，图标放在public文件夹中，herf后直接 '/图片.格式' ，不要./
+        [
+            'link',
+            {
+                rel: 'icon',
+                href: '/繁星.png',
+            },
+        ],
+    ],
+    plugins: [
+        '@vuepress/plugin-back-to-top',
+        '@vuepress/plugin-medium-zoom',
+        '@vuepress-reco/vuepress-plugin-kan-ban-niang',
+        'ribbon',
+        {
+            size: 90, // width of the ribbon, default: 90
+            opacity: 0.8, // opacity of the ribbon, default: 0.3
+            zIndex: -1, // z-index property of the background, default: -1
+        },
+        'cursor-effects',
+        {
+            size: 2, // size of the particle, default: 2
+            shape: ['star' | 'circle'], // shape of the particle, default: 'star'
+            zIndex: 999999999, // z-index property of the canvas, default: 999999999
+        },
+        'vuepress-plugin-boxx',
 		{
 			theme: [
 				'haruto',
@@ -582,6 +573,11 @@ module.exports = {
 					title: 'css the need',
 					collapsable: false,
 					path: 'cssms',
+                },
+                {
+                    title: 'css高阶',
+                    collapsable: false,
+                    path: 'newcss',
                 },
 			],
 			//jquery

@@ -27,12 +27,11 @@ tags:
 
 ## 五大主流浏览器及其四大内核
 
-1. IE 浏览器 Trident 内核
-2. Chrome 浏览器 webkit 内核
-3. Opera 浏览器 presto 内核
-4. Safari 浏览器 webkit 内核
-5. Firefox 浏览器 Gecko 内核
-
+1. `trident`:    IE   windows
+2. `gecko`:    firefox   跨平台
+3. `webkit`:    safari/chrome
+4. `presto`:    opera   渲染速度最快
+5. `blink` :    google/opera 共同开发
 ## 浏览器输入地址做的事情
 
 ![做的事情](https://z3.ax1x.com/2021/03/30/cPRJrF.png)

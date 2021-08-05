@@ -7,7 +7,8 @@ categories:
 tags:
   - React
 ---
-## 类组件的生命周期钩子
+## 类组件的生命周期钩子 关键思路是fiber
+- fiber 分为两个阶段  分别是 可以打断（componentWillMount,componentWillUpdata等 17版废弃了）和不可以打断
 - 常用生命周期
 ![常用生命周期](https://s1.ax1x.com/2020/10/02/0QDVxK.md.png)
 - 不常用生命周期

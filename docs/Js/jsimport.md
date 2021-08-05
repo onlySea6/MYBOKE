@@ -41,7 +41,7 @@ var name = '时间跳跃';
 var obj = {
     name: '听风是风'
 };
-
+// call和apply和原理将函数放到目标对象的内部
 // ES6 call
 Function.prototype.call_ = function (obj) {
     obj == obj ? Object(obj) : window;

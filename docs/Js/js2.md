@@ -396,8 +396,8 @@ var a = function() {
 ```
 ## 异步代码 宏任务和微任务
 - 异步代码分为微任务和宏任务
-- 宏任务->setTimeout/setInterval
-- 微任务->promise
+- 宏任务->setTimeout/setInterval 正常的js代码
+- 微任务->promise  以及线程中的process.nextTick
 - 微任务永远比宏任务先执行 
 - 宏任务先进先出 进行排序
 - 当运行到宏任务有微任务时，先执行微任务

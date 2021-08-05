@@ -42,3 +42,27 @@ import ProtoTypes from 'prop-types'
          n:ProtoTypes.number.isRequired,
       }
 ```
+
+## 组件传值
+1. 父子组件 相互通信 使用props
+2. 兄弟或者多级通信 使用 context或者redux等
+```js
+// 使用contex
+// 1. 先创建 
+React.createContext()
+// 2. 在父级 引入 包裹所需要传参的子组件
+// value 可以传对象也可以传函数
+<Context.Provider value={{name:this.state.page,fn:this.add}}></Context.Provider>
+// 3.子组件同样引入
+// 如果只使用值  直接
+static contextType = Context;
+// 如果还调用父组件的方法
+<Context.Consumer>
+{(value)=>{
+    // 这个value 即为父组件value 传过来的所有方法
+    return<>
+    <div></div>
+    </>
+}}
+</Context.Consumer>
+```
