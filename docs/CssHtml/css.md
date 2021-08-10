@@ -34,6 +34,7 @@ display:-webkit-box;
 display: block;
 white-space: nowrap;
 width: 500rpx;
+  /* -webkit-font-smoothing:antialiased; *//* 让页面里的字体变清晰  在 window 系 统 下 没 有 起 作 用 ， 但 是 在 IOS 设 备 上 起 作 用*/
 ```
 ## css样式控制文字强制换行
 ```css
